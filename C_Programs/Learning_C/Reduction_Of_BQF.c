@@ -16,6 +16,10 @@ int main()
     printf("Your input is %dx^2 + %dxy + %dy^2\n", Input_Poly[0], Input_Poly[1], Input_Poly[2]);
 
     //Replacement loop
+    while ((Input_Poly[0] > Input_Poly[1]) OR (Input_Poly[1] > Input_Poly[0]) OR (Input_Poly[1] <= -Input_Poly[0]))
+    {
+        
+    }
     
 
 
