@@ -62,13 +62,6 @@ node_t *insert_after_node(node_t *node_to_insert_after, node_t* new_node)
     node_to_insert_after->next = new_node;
 }
 
-//removes a node from your list
-node_t *remove_node(node_t *node_to_delete)
-{
-    
-}
-
-
 int main()
 {
     node_t *head = NULL;
