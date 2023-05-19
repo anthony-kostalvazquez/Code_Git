@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int INPUT_ARR_1[] = {3,4,2};
-int INPUT_ARR_2[] = {4,6,5};
+int INPUT_ARR_1[] = {9,9,9,9,9,9,9};
+int INPUT_ARR_2[] = {9,9,9,9};
 
 
 //linked list implementation
@@ -67,14 +67,103 @@ node_t *insert_after_node(node_t *node_to_insert_after, node_t* new_node)
     node_to_insert_after->next = new_node;
 }
 
+//takes a linked list in reverse order and returns the integer it represents
+int Integer_From_Reverse_Linked_List(node_t *head)
+{
+    int return_int = 0;
+    int i = 1;
+
+    while(head != NULL)
+    {
+        return_int += (head->val)*i;
+        i = i*10;
+        head = head->next;
+    }
+
+    return(return_int);
+}
+
+//Takes a link list and flips it
+node_t *List_Flip(node_t *head)
+{
+    node_t *return_head = NULL;
+    
+    while(head != NULL)
+    {
+        insert_at_head(&return_head, create_new_node(head->val));
+        head = head->next;
+    }
+
+    return(return_head);
+}
 
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
 {
+    node_t *Return_List_Head = NULL;
     node_t *temp;
+    int carryover = 0;
 
-    while(l1 != NULL)
+    //calculating the sum into a linked list in the correct order
+    while(l1 != NULL || l2 != NULL || carryover != 0)
     {
+
+        //initalizing
+        int added_digits = 0;
+
+        //adding the numbers from the linked lists and incrementing
+        if(l1 != NULL)
+        {
+            added_digits += l1->val;
+            l1 = l1->next;
+            printf("adding l1 = %d\n", added_digits);
+        }
+        if(l2 != NULL)
+        {
+            added_digits += l2->val;
+            printf("adding l2 = %d\n", l2->val);
+            l2 = l2->next;
+        }
+
+        printf("added digits + carryover = %d\n", added_digits + carryover);
+        
+
+
+        //creating a new node and putting the digits in 
+        temp = create_new_node((added_digits + carryover) % 10);
+        printf("%d\n", temp->val);
+        Return_List_Head = insert_at_head(&Return_List_Head, temp);
+
+        //incrementing the caryover if needed
+        if((added_digits + carryover) >= 10)
+        {
+            carryover = 1;
+        }
+        else
+        {
+            carryover = 0;
+        }
+
     }
+    
+
+    /*
+    node_t *Return_List_Head = NULL;
+    node_t *temp;
+    
+    //we calculate the output integer
+    int added_int = Integer_From_Reverse_Linked_List(l1) + Integer_From_Reverse_Linked_List(l2);
+
+    //then we put it into a linked list
+    do
+    {
+        temp = create_new_node(added_int%10);
+        Return_List_Head = insert_at_head(&Return_List_Head, temp);
+        added_int = added_int / 10;
+    } while (added_int != 0);
+    */
+
+    //Return a flipped list
+    return(List_Flip(Return_List_Head));
 }
 
 int main()
@@ -85,6 +174,10 @@ int main()
     for (int i = 0; i < sizeof(INPUT_ARR_1)/sizeof(INPUT_ARR_1[0]); i++)
     {
         insert_at_head(&headl1, create_new_node(INPUT_ARR_1[i]));
+    }
+    
+    for (int i = 0; i < sizeof(INPUT_ARR_2)/sizeof(INPUT_ARR_2[0]); i++)
+    {
         insert_at_head(&headl2, create_new_node(INPUT_ARR_2[i]));
     }
 
@@ -92,8 +185,9 @@ int main()
     printlist(headl1);
     printlist(headl2);
 
-    addTwoNumbers(headl1,headl2);
+    tmp = addTwoNumbers(headl1,headl2);
 
+    printlist(tmp);
 
     /*
     struct ListNode l1,l2;
