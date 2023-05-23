@@ -1,14 +1,17 @@
-//gcc Linked_Stack_Implementation.c -I.
+//gcc LinkedStackTester.c -I.
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "LinkedStack.h"
+//#include "LinkedStack.h"
+#include "DoubleLinkedStack.h"
 
 int main()
 {
-    //this is to test the implementation
-    LSNODE_T *top = NULL;
+    //this is to test the implementation of single linked stack
+    //LSNODE_T *top = NULL;
+    //this is to test the implementation of a double linked stack
+    DLSNODE_T *top = NULL;
 
     printf("Creating a new stack of integers \n");
     printStack(top);
@@ -27,7 +30,7 @@ int main()
     printf("Popped: %d\n", pop(&top));
     printf("The peek of the stack is: %d\n", peek(top));
     
-    printf("Clearning the stack\n");  
+    printf("Clearing the stack\n");  
     printStack(top);
     while (!isEmpty(top))
     {

@@ -11,16 +11,6 @@ struct Double_Linked_Stack_Node
 
 typedef struct Double_Linked_Stack_Node DLSNODE_T;
 
-//creates a new node in a stack
-DLSNODE_T *create_new_node(int value)
-{
-    DLSNODE_T *result = (DLSNODE_T *) malloc(sizeof( DLSNODE_T ));
-    result->value = value;
-    result->next = NULL;
-    result->prev = NULL;
-    return result;
-}
-
 //prints out the whole stack
 void printStack(DLSNODE_T *top)
 {
@@ -37,6 +27,16 @@ void printStack(DLSNODE_T *top)
         tmp = tmp->next;
     }
     printf("\n");
+}
+
+//creates a new node in a stack
+DLSNODE_T *create_new_node(int value)
+{
+    DLSNODE_T *result = (DLSNODE_T *) malloc(sizeof( DLSNODE_T ));
+    result->value = value;
+    result->next = NULL;
+    result->prev = NULL;
+    return result;
 }
 
 //answers the questions is the stack empty with a bool
@@ -62,8 +62,22 @@ bool isFull(DLSNODE_T *top)
 //Updates the top element
 void push(DLSNODE_T **top, int value_to_insert)
 {
+    DLSNODE_T *temp = *top;
+
+    //makes new node with the value
     DLSNODE_T *node_to_insert = create_new_node(value_to_insert);
-    node_to_insert->next = *top;
+
+    //points new node to the old top
+    node_to_insert->next = temp;
+    node_to_insert->prev = NULL;
+
+    //points the previous tops prev to the new one and makes sure its not the first one in the stack
+    if ((*top) != NULL)
+    {
+        (*top)->prev = node_to_insert;
+    }
+
+    //updates top node
     *top = node_to_insert;
 }
 
@@ -71,11 +85,25 @@ void push(DLSNODE_T **top, int value_to_insert)
 //updates the stack top
 int pop(DLSNODE_T **top)
 {
-    if( !(isEmpty(*top)))
+    if((!(isEmpty(*top))) && ((*top)->next == NULL))
     {
         DLSNODE_T *tmp = *top;
+
         int return_int = tmp->value;
         *top = (*top)->next;
+
+        free(tmp);
+        return(return_int);
+    }
+    else if( !(isEmpty(*top)))
+    {
+        DLSNODE_T *tmp = *top;
+
+        int return_int = tmp->value;
+
+        *top = (*top)->next;
+        (*top)->prev = NULL;
+
         free(tmp);
         return(return_int);
     }

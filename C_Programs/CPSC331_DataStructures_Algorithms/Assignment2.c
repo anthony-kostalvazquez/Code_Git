@@ -28,36 +28,32 @@ For simplicity, you may assume the following:
 Create your own larger mazes to test your code. Your mazes must have a size of at least 50x50
 characters, but they should not exceed a size that cannot fit on one screen without breaking lines.
 */
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
+#include "Assignment2.h"
 
 
 
-char Maze_Arr[50][50];
-int j = 0;
-
+char Maze_Arr[500];
 
 int main(int argc, char * argv[])
 {
 
 
     //Open both in files
-    FILE *in_file;
-    in_file = fopen(Mazes.txt, "r");
+    FILE *in_file = fopen("Mazes.txt", "r");
 
-    printf("We are now reading from file %s\n", argv[1]);
-
-    while ((fread(Maze_Arr, sizeof(Maze_Arr), 1, in_file) == 1))
+    while(fgets(Maze_Arr, sizeof(Maze_Arr), in_file))
     {
-        for (int i = 0 ; i < 512; i++)
+        int i = 0;
+        while(Maze_Arr[i] != '\n')
         {
-            printf("class number = %d \t the discriminant is %d \n", Maze_Arr[i], -(A + B*(j)));
-            j += 1;
+            printf("%c ", Maze_Arr[i]);
         }
     }
+
 
     fclose(in_file);
     
