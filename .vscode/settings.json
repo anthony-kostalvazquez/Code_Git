@@ -2,6 +2,8 @@
     "files.associations": {
         "stdio.h": "c",
         "stdbool.h": "c",
-        "data_type_implmentations.h": "c"
+        "data_type_implmentations.h": "c",
+        "functional": "c",
+        "string.h": "c"
     }
 }

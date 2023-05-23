@@ -53,27 +53,44 @@ DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
         for (int column = 0; column < num_of_col; column++)
         {
             char temp = Maze_Arr[column];
-            printf("what it should be %c \n", Maze_Arr[column]);
-            printf("What temp is %c \n", temp);
+            //printf("what it should be %c \n", Maze_Arr[column]);
+            //printf("What temp is %c \n", temp);
+            //printf("%c ", Maze_Arr[column]);
             
-            
-            temp_cell = create_new_cell(row_num, column, &temp, false);
+            temp_cell = create_new_cell(row_num, column, temp, false);
 
-            //push(&return_stack_top, temp_cell);
+            //printf("%s \n", temp_cell->cell_type);
+            //printf("%c \n", temp);
+            push(&return_stack_top, temp_cell);
+            //printf(        "%c",peek(return_stack_top).cell_type);
 
-
-            print_cell(temp_cell);
-
+            //print_cell(temp_cell);
 
         }
         printf("\n");
         row_num++;
     }
 
-    printStack(return_stack_top);
-
 
     fclose(in_file);
+    printStack(return_stack_top);
+
+    
+    DLSNODE_T *tmp = return_stack_top;
+    CELL_T current_cell;
+    
+    printf("TOP--> ");
+    
+    
+    while(tmp != NULL)
+    {
+        current_cell = tmp->cell;
+        printf("%c ", current_cell.cell_type);
+        tmp = tmp->next;
+    }
+    
+    
+
     return(return_stack_top);
 }
 

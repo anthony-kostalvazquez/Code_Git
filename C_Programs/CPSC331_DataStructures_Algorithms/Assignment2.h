@@ -6,7 +6,7 @@ struct Cell_Objects
 {
     int row;
     int column;
-    char *cell_type;
+    char cell_type;
     bool visited;
 };
 typedef struct Cell_Objects CELL_T;
@@ -22,25 +22,25 @@ typedef struct Double_Linked_Stack_Node DLSNODE_T;
 //prints out the whole stack
 void printStack(DLSNODE_T *top)
 {
-    DLSNODE_T *tmp = top;
+    DLSNODE_T *temp = top;
+    CELL_T current_cell;
     
     printf("TOP--> ");
-    while(tmp != NULL)
+    
+    
+    while(temp != NULL)
     {
-        printf("%s ", (tmp->cell).cell_type);
-        if(tmp->next != NULL)
-        {
-            printf(", ");
-        }
-        tmp = tmp->next;
+        current_cell = temp->cell;
+        printf("%c ", current_cell.cell_type);
+        temp = temp->next;
     }
-    printf("\n");
+
 }
 
 //prints out a cells values
 void print_cell(CELL_T *cell_to_print)
 {
-    printf("row = %d, column = %d, cell type = %s, visited %d\n", cell_to_print->row, cell_to_print->column, cell_to_print->cell_type, cell_to_print->visited);
+    printf("row = %d, column = %d, cell type = %c, visited %d\n", cell_to_print->row, cell_to_print->column, cell_to_print->cell_type, cell_to_print->visited);
 }
 
 //Creates a new node in a stack given all the cell inputs and outputs a pointer to it
@@ -56,15 +56,16 @@ DLSNODE_T *create_new_node(CELL_T *Cell_To_Add)
 }
 
 //Creates a new cell given the inputs and returns a pointer to it
-CELL_T *create_new_cell(int row_in, int column_in, char *cell_type_in, bool visited_in)
+CELL_T *create_new_cell(int row_in, int column_in, char cell_type_in, bool visited_in)
 {
-    CELL_T* return_cell = (CELL_T *) malloc(sizeof( CELL_T ));
-    
+    CELL_T* return_cell = (CELL_T *)malloc(sizeof( CELL_T ));
 
+    //strcpy(return_cell->cell_type, cell_type_in);
     return_cell->row = row_in;
     return_cell->column = column_in;
     return_cell->cell_type = cell_type_in;
     return_cell->visited = visited_in;
+
 
     return(return_cell);
 }
@@ -92,28 +93,17 @@ bool isFull(DLSNODE_T *top)
 //Updates the top element
 void push(DLSNODE_T **top, CELL_T *Cell_To_Insert)
 {
-    //checks if the stack is currently empty the
-    if((isEmpty(*top)))
-    {
 
+    //makes new node with the value
+    DLSNODE_T *node_to_insert = create_new_node(Cell_To_Insert);
 
-        //updates top node
-        *top = node_to_insert;
-    }
-    //if its empty it will do this
-    else
-    {
-        DLSNODE_T *temp = *top;
-        //makes new node with the value
-        DLSNODE_T *node_to_insert = create_new_node(Cell_To_Insert);
-
-        //updates top node
-        *top = node_to_insert;
-    }
+    node_to_insert->next = *top;
+    *top = node_to_insert;
 }
 
 //Removes the item from the top of the stack and returns a pointer to the cell it stored
 //updates the stack top
+
 CELL_T pop(DLSNODE_T **top)
 {
     if((!(isEmpty(*top))) && ((*top)->next == NULL))
@@ -145,6 +135,7 @@ CELL_T pop(DLSNODE_T **top)
         printf("UNDERFLOW in pop- Cannot remove from an empty stack\n");
     }
 }
+
 
 //prints out the top value if the list is not empty
 CELL_T peek(DLSNODE_T *top)

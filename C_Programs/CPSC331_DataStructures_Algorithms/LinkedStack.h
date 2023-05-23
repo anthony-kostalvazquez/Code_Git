@@ -59,6 +59,7 @@ bool isFull(LSNODE_T *top)
 void push(LSNODE_T **top, int value_to_insert)
 {
     LSNODE_T *node_to_insert = create_new_node(value_to_insert);
+    
     node_to_insert->next = *top;
     *top = node_to_insert;
 }
