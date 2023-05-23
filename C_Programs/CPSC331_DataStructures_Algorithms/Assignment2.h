@@ -37,6 +37,12 @@ void printStack(DLSNODE_T *top)
     printf("\n");
 }
 
+//prints out a cells values
+void print_cell(CELL_T *cell_to_print)
+{
+    printf("row = %d, column = %d, cell type = %s, visited %d\n", cell_to_print->row, cell_to_print->column, cell_to_print->cell_type, cell_to_print->visited);
+}
+
 //Creates a new node in a stack given all the cell inputs and outputs a pointer to it
 DLSNODE_T *create_new_node(CELL_T *Cell_To_Add)
 {
@@ -54,11 +60,11 @@ CELL_T *create_new_cell(int row_in, int column_in, char *cell_type_in, bool visi
 {
     CELL_T* return_cell = (CELL_T *) malloc(sizeof( CELL_T ));
     
+
     return_cell->row = row_in;
     return_cell->column = column_in;
     return_cell->cell_type = cell_type_in;
     return_cell->visited = visited_in;
-
 
     return(return_cell);
 }
@@ -86,23 +92,24 @@ bool isFull(DLSNODE_T *top)
 //Updates the top element
 void push(DLSNODE_T **top, CELL_T *Cell_To_Insert)
 {
-    DLSNODE_T *temp = *top;
-
-    //makes new node with the value
-    DLSNODE_T *node_to_insert = create_new_node(Cell_To_Insert);
-
-    //points new node to the old top
-    node_to_insert->next = temp;
-    node_to_insert->prev = NULL;
-
-    //points the previous tops prev to the new one and makes sure its not the first one in the stack
-    if ((*top) != NULL)
+    //checks if the stack is currently empty the
+    if((isEmpty(*top)))
     {
-        (*top)->prev = node_to_insert;
-    }
 
-    //updates top node
-    *top = node_to_insert;
+
+        //updates top node
+        *top = node_to_insert;
+    }
+    //if its empty it will do this
+    else
+    {
+        DLSNODE_T *temp = *top;
+        //makes new node with the value
+        DLSNODE_T *node_to_insert = create_new_node(Cell_To_Insert);
+
+        //updates top node
+        *top = node_to_insert;
+    }
 }
 
 //Removes the item from the top of the stack and returns a pointer to the cell it stored
