@@ -63,7 +63,6 @@ CELL_T *create_new_cell(int row_in, int column_in, char *cell_type_in, bool visi
     return(return_cell);
 }
 
-
 //answers the questions is the stack empty with a bool
 bool isEmpty(DLSNODE_T *top)
 {

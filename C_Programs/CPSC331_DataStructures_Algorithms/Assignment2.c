@@ -34,28 +34,46 @@ characters, but they should not exceed a size that cannot fit on one screen with
 
 #include "Assignment2.h"
 
-
-
-char Maze_Arr[500];
-
-int main(int argc, char * argv[])
+DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
 {
+    DLSNODE_T *return_stack;
 
-
-    //Open both in files
+    char Maze_Arr[num_of_col * num_of_rows];
     FILE *in_file = fopen("Mazes.txt", "r");
 
+
+    int row_num = 0;
+    int col_num = 0;
     while(fgets(Maze_Arr, sizeof(Maze_Arr), in_file))
     {
-        int i = 0;
-        while(Maze_Arr[i] != '\n')
+        for (int i = 0; i < num_of_col; i++)
         {
+            
+
             printf("%c ", Maze_Arr[i]);
+
+
+
+
         }
+        printf("\n");
+
     }
 
 
     fclose(in_file);
+    return(return_stack);
+}
+
+
+int main(int argc, char * argv[])
+{
+    //NEED TO CHANGE THIS TO GET USER INPUT
+    int number_of_rows = 9;
+    int number_of_columns = 12;
+
+
+    input_maze_from_text(number_of_rows, number_of_columns);
     
 
     return(0);
