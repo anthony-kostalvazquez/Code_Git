@@ -10,25 +10,24 @@ int main()
     printf("Creating a new queue of integers\n");
     LQUEUE_T *queue = createQueue();
     printf("Starting with an empty queue\n");
-    q.printQueue();
-    q.enqueue(new Integer(1));
-    q.printQueue();
-    q.enqueue(new Integer(2));
-    q.printQueue();
-    q.enqueue(new Integer(3));
-    q.printQueue();
-    /*
-    printf("Dequeued: " + q.dequeue());
-    q.printQueue();
-    printf("Dequeued: " + q.dequeue());
-    q.printQueue();
-    printf("Dequeued: " + q.dequeue());
-    q.printQueue();
-    q.enqueue(new Integer(4));
-    q.printQueue();
-    printf("Dequeued: " + q.dequeue());
-    q.printQueue();
-    */
+    printQueue(queue);
+    enqueue(1, &queue);
+    printQueue(queue);
+    enqueue(2, &queue);
+    printQueue(queue);
+    enqueue(3, &queue);
+    printQueue(queue);
+    printf("Starting to dequeue\n");
+    printf("Dequeued: %d\n", dequeue(&queue));
+    printQueue(queue);
+    printf("Dequeued: %d\n", dequeue(&queue));
+    printQueue(queue);
+    printf("Dequeued: %d\n", dequeue(&queue));
+    printQueue(queue);
+    enqueue(4, &queue);
+    printQueue(queue);
+    printf("Dequeued: %d\n", dequeue(&queue));
+    printQueue(queue);
 
     return 0;
 }

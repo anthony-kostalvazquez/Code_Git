@@ -19,11 +19,20 @@ typedef struct LinkedQueue LQUEUE_T;
 //prints the queue with front and rear markers
 void printQueue(LQUEUE_T *queue)
 {
-    NODE_T 
-    printf("rear ->");
-    for()
 
-    printf("<-- front")
+    printf("rear-> ");
+    if(queue)
+    //itterates through all of the nodes of queue
+    for(NODE_T *i = queue->rear; i != NULL; i = i->next)
+    {
+        printf("%d", i->value);
+        if(i->next != NULL)
+        {
+            printf(", ");
+        }
+    }
+
+    printf(" <-front\n");
 }
 
 //creates a new node with an integer element
@@ -58,20 +67,47 @@ bool isFull(LQUEUE_T *queue)
 }
 
 // FIFO this will add from the rear and push the front up
-// rear [val]->[val]->[val] front
+// rear [enqueue]->[val]->[val]->[val] front
 void enqueue (int element, LQUEUE_T **queue)
 {
     NODE_T *nn = newNode(element);
     nn->next = (*queue)->rear;
     (*queue)->rear = nn;
 
-    if((*queue)->front = NULL)
+    if((*queue)->front == NULL)
     {
         (*queue)->front = (*queue)->rear;
     }
 }
 
-int dequeue (LQUEUE_T)
+//this will remove the front element of the queue and return its value
+//rear [val]->[val]->[val] front
+int dequeue (LQUEUE_T **queue)
 {
 
+    int return_value = (*queue)->front->value;
+
+
+    if ((*queue)->front == (*queue)->rear)
+    {
+        (*queue)->front = NULL;
+        (*queue)->rear = NULL;
+
+        free((*queue)->front);
+    }
+    else
+    {
+        //create a temporary pointer
+        NODE_T *tmp = (*queue)->rear;
+        //climb through the queue until you find the second to last node
+        while(tmp->next != (*queue)->front)
+        {
+            tmp = tmp->next;
+        }
+        //now that tmp is a pointer to the second to last node we update this to front and delete the last node
+        (*queue)->front = tmp;
+        (*queue)->front->next = NULL;
+        free(tmp->next);
+    }
+    return(return_value);
 }
