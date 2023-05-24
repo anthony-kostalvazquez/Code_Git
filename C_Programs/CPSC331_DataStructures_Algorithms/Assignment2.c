@@ -29,11 +29,12 @@ Create your own larger mazes to test your code. Your mazes must have a size of a
 characters, but they should not exceed a size that cannot fit on one screen without breaking lines.
 */
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
 #include "Assignment2.h"
+
+
 
 DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
 {
@@ -72,10 +73,10 @@ DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
     }
 
 
-    fclose(in_file);
+    
     printStack(return_stack_top);
 
-    
+    /*
     DLSNODE_T *tmp = return_stack_top;
     CELL_T current_cell;
     
@@ -88,9 +89,9 @@ DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
         printf("%c ", current_cell.cell_type);
         tmp = tmp->next;
     }
+    */
     
-    
-
+    fclose(in_file);
     return(return_stack_top);
 }
 

@@ -22,19 +22,19 @@ typedef struct Double_Linked_Stack_Node DLSNODE_T;
 //prints out the whole stack
 void printStack(DLSNODE_T *top)
 {
-    DLSNODE_T *temp = top;
+    DLSNODE_T *tmp = top;
     CELL_T current_cell;
     
     printf("TOP--> ");
     
     
-    while(temp != NULL)
+    while(tmp != NULL)
     {
-        current_cell = temp->cell;
+        current_cell = tmp->cell;
         printf("%c ", current_cell.cell_type);
-        temp = temp->next;
+        tmp = tmp->next;
     }
-
+    
 }
 
 //prints out a cells values
