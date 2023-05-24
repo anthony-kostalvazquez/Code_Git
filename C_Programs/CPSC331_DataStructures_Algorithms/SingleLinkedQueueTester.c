@@ -29,5 +29,13 @@ int main()
     printf("Dequeued: %d\n", dequeue(&queue));
     printQueue(queue);
 
+    for (int i = 0; i < 1000; i++)
+    {
+        enqueue(i,&queue);
+        dequeue(&queue);
+    }
+    
+    
+    free(queue);
     return 0;
 }

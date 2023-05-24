@@ -32,7 +32,8 @@ characters, but they should not exceed a size that cannot fit on one screen with
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "Assignment2.h"
+#include "Assignment2DLS.h"
+#include "Assignment2SLQ.h"
 
 
 

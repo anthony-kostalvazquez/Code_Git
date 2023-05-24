@@ -6,6 +6,7 @@
         "functional": "c",
         "string.h": "c",
         "assignment2.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "assignment2dls.h": "c"
     }
 }
