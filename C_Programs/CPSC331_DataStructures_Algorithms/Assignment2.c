@@ -32,21 +32,19 @@ characters, but they should not exceed a size that cannot fit on one screen with
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "Assignment2DLS.h"
-#include "Assignment2SLQ.h"
+#include "Assignment2.h"
 
 
-
-DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
+SLQUEUE_T *input_maze_from_text(int num_of_rows,int num_of_col)
 {
-    DLSNODE_T *return_stack_top;
+    SLQUEUE_T *return_queue = createQueue();
+
 
     char Maze_Arr[num_of_col * num_of_rows];
     FILE *in_file = fopen("Mazes.txt", "r");
 
 
     int row_num = 0;
-    DLSNODE_T *temp_node;
     CELL_T *temp_cell;
 
     //row loop
@@ -63,7 +61,7 @@ DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
 
             //printf("%s \n", temp_cell->cell_type);
             //printf("%c \n", temp);
-            push(&return_stack_top, temp_cell);
+            enqueue(temp_cell, &return_queue);
             //printf(        "%c",peek(return_stack_top).cell_type);
 
             //print_cell(temp_cell);
@@ -73,10 +71,7 @@ DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
         row_num++;
     }
 
-
-    
-    printStack(return_stack_top);
-
+    printQueue(return_queue);
     /*
     DLSNODE_T *tmp = return_stack_top;
     CELL_T current_cell;
@@ -93,7 +88,7 @@ DLSNODE_T *input_maze_from_text(int num_of_rows,int num_of_col)
     */
     
     fclose(in_file);
-    return(return_stack_top);
+    return(return_queue);
 }
 
 

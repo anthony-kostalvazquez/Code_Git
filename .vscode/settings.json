@@ -7,6 +7,11 @@
         "string.h": "c",
         "assignment2.h": "c",
         "stdlib.h": "c",
-        "assignment2dls.h": "c"
+        "assignment2dls.h": "c",
+        "system_error": "c",
+        "array": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
     }
 }
