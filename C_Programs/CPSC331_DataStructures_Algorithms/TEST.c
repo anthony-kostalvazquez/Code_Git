@@ -36,54 +36,56 @@ characters, but they should not exceed a size that cannot fit on one screen with
 
 
 //prints a maze out from a queue of cells
-void print_maze_queue(SLQUEUE_T *queue)
+void print_maze(CELL_T *MAZE, int number_of_rows, int number_of_columns)
 {
-    //itterates through all of the nodes of queue
-    for(SLQNODE_T *i = queue->rear; i != NULL; i = i->next)
+    
+    for (int i = 0; i < number_of_rows; i++)
     {
-        printf("%c", (i->cell)->cell_type);
-        //prints out a new line when the the row number is about to change
-        
-        if(((i->next)->cell)->row != (i->cell)->row)
+        for (int j = 0; j < number_of_columns; j++)
         {
-            printf("\n");
+            printf("%c ", (MAZE[i][j]).cell_type);
         }
+    printf("\n");
     }
 }
 
-//takes a maze from a plain text file and saves the info into a queue
-SLQUEUE_T *input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
+//takes a maze from a plain text file and saves the info into a 2D array
+CELL_T **input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
 {
     //initalizing some values 
-    SLQUEUE_T *return_queue = createQueue();
     int row_num = 0;
+    char buffer[num_of_col * num_of_rows];
     CELL_T *temp_cell;
-    char Maze_Arr[num_of_col * num_of_rows];
+    CELL_T **output_array;
+
+    //allocating the memory for the array
+    output_array = malloc(sizeof(CELL_T *)* num_of_rows);
+    for (int i = 0; i < num_of_rows; i++)
+    {
+        output_array[i] = malloc(sizeof(CELL_T) * num_of_col);
+    }
 
     //opening the file
     FILE *in_file = fopen(file_in, "r");
 
-    MAZE_ARRAY
-
-
     //row loop (reads the plain text file line by line)
-    while(fgets(Maze_Arr, sizeof(Maze_Arr), in_file))
+    while(fgets(buffer, sizeof(buffer), in_file))
     {
         //column loop (splits the lines into individual chars)
         for (int column = 0; column < num_of_col; column++)
         {
-            char temp = Maze_Arr[column];
+            char temp = buffer[column];
             temp_cell = create_new_cell(row_num, column, temp, false);
-            enqueue(temp_cell, &return_queue);
+            output_array[row_num][column] = *temp_cell;
         }
         row_num++;
     }
 
     fclose(in_file);
-    return(return_queue);
+    return(output_array);
 }
 
-//this is a program that will solve mazes
+//this is a program that will solve mazes from plain text files
 int main(int argc, char * argv[])
 {
     //NEED TO CHANGE THIS TO GET USER INPUT
@@ -92,9 +94,16 @@ int main(int argc, char * argv[])
     char file_name[] = "Mazes.txt";
     //NEED TO CHANGE THIS TO GET USER INPUT
 
-    SLQUEUE_T *MAZE_QUEUE;
+    CELL_T *MAZE_ARRAY;
+
     input_maze_from_text(number_of_rows, number_of_columns, file_name);
     
 
+
+    //print_maze(MAZE_ARRAY[0],number_of_rows,number_of_columns);
+
+
+
     return(0);
 }
+
