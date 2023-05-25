@@ -46,13 +46,13 @@ void print_maze_queue(SLQUEUE_T *queue)
         
         if(((i->next)->cell)->row != (i->cell)->row)
         {
-            printf("\n ");
+            printf("\n");
         }
     }
 }
 
 //takes a maze from a plain text file and saves the info into a queue
-CELL_T *input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
+SLQUEUE_T *input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
 {
     //initalizing some values 
     SLQUEUE_T *return_queue = createQueue();
@@ -62,7 +62,8 @@ CELL_T *input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
 
     //opening the file
     FILE *in_file = fopen(file_in, "r");
-    CELL_T MAZE_ARRAY[num_of_col * num_of_rows];
+
+    MAZE_ARRAY
 
 
     //row loop (reads the plain text file line by line)
@@ -73,14 +74,13 @@ CELL_T *input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
         {
             char temp = Maze_Arr[column];
             temp_cell = create_new_cell(row_num, column, temp, false);
-            MAZE_ARRAY[row_num + column] = *temp_cell;
             enqueue(temp_cell, &return_queue);
         }
         row_num++;
     }
 
     fclose(in_file);
-    return(MAZE_ARRAY);
+    return(return_queue);
 }
 
 //this is a program that will solve mazes
