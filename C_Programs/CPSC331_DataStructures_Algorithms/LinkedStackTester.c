@@ -37,6 +37,7 @@ int main()
         pop(&top);
         printStack(top);
     } 
+    
     printf("Attempting a pop on an empty stack\n");
     pop(&top);
     printf("Creating a another stack\n");
@@ -51,8 +52,8 @@ int main()
     push(&top, 10);  
     printf("Pushed 10\n");
     printStack(top);
+    
 
-
-
+    free(top);
     return 0;
 }
