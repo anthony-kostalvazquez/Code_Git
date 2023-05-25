@@ -34,8 +34,22 @@ characters, but they should not exceed a size that cannot fit on one screen with
 
 #include "Assignment2.h"
 
+//struct for locating various things around the maze
+struct MAZE_INFO
+{
+    int num_rows;
+    int num_col;
+    int cheese_row;
+    int cheese_col;
+    int mouse_row;
+    int mouse_col;
+};
+typedef struct MAZE_INFO MAZE_T;
+
+
 
 //prints a maze out from a queue of cells
+//NOW WITH COOL COLOURS//
 void print_maze(int number_of_rows, int number_of_columns, CELL_T **MAZE)
 {
     
@@ -43,7 +57,31 @@ void print_maze(int number_of_rows, int number_of_columns, CELL_T **MAZE)
     {
         for (int j = 0; j < number_of_columns; j++)
         {
-            printf("%c ", (MAZE[i][j]).cell_type);
+            //prints the 0's black
+            if((MAZE[i][j]).cell_type == '0')
+            {
+                printf(BLK "%c " RESET, (MAZE[i][j]).cell_type);
+            }
+            //prints the 1's white
+            else if((MAZE[i][j]).cell_type == '1')
+            {
+                printf("%c ", (MAZE[i][j]).cell_type);
+            }
+            //prints the cheese yellow
+            else if((MAZE[i][j]).cell_type == 'c')
+            {
+                printf(YEL "%c " RESET, (MAZE[i][j]).cell_type);
+            }
+            //prints the mouse white
+            else if((MAZE[i][j]).cell_type == 'm')
+            {
+                printf(WHT "%c " RESET, (MAZE[i][j]).cell_type);
+            }
+            //prints the path taken green
+            else
+            {
+                printf(GRN "%c " RESET, (MAZE[i][j]).cell_type);
+            }
         }
     printf("\n");
     }
@@ -98,6 +136,15 @@ int main(int argc, char * argv[])
     CELL_T **MAZE_ARRAY;
     MAZE_ARRAY = input_maze_from_text(number_of_rows, number_of_columns, file_name);
     print_maze(number_of_rows, number_of_columns, MAZE_ARRAY);
+
+    //DEPTH-FIRST SEARCH (STACK IMPLEMENTATION)
+
+
+
+
+    //BREADTH-FIRST SEARCH (QUEUE IMPLEMENTATION)
+
+
 
 
 
