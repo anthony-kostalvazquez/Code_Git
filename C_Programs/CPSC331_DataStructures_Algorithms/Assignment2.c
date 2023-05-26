@@ -75,7 +75,7 @@ void print_maze(int number_of_rows, int number_of_columns, CELL_T **MAZE)
             //prints the mouse white
             else if((MAZE[i][j]).cell_type == 'm')
             {
-                printf(WHT "%c " RESET, (MAZE[i][j]).cell_type);
+                printf(BLU "%c " RESET, (MAZE[i][j]).cell_type);
             }
             //prints the path taken green
             else
@@ -88,6 +88,7 @@ void print_maze(int number_of_rows, int number_of_columns, CELL_T **MAZE)
 }
 
 //takes a maze from a plain text file and saves the info into a 2D array
+//Also fills out the MazeInfo (i.e finds the mouse position and cheese)
 CELL_T **input_maze_from_text(int num_of_rows,int num_of_col, char *file_in, MAZE_T *maze_info)
 {
     //initalizing some values 
@@ -146,19 +147,15 @@ int main(int argc, char * argv[])
     MAZE_T MazeInfo;
     
     //taking user input
-    printf("\n Enter the number of rows: ");
+    printf("Enter the number of rows: ");
     scanf("%d", &MazeInfo.rows);
-    printf("\n Enter the number of cols: ");
+    printf("Enter the number of cols: ");
     scanf("%d", &MazeInfo.col);
 
     //Puts the plain text file into a 2D array called MAZE
     CELL_T **MAZE_ARRAY;
     MAZE_ARRAY = input_maze_from_text(MazeInfo.rows, MazeInfo.col, file_name, &MazeInfo);
     print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
-    printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
-    printf("the mouse is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
-
-    //Fills out the MazeInfo (i.e finds the mouse position and cheese)
 
 
 
@@ -188,3 +185,10 @@ int main(int argc, char * argv[])
     return(0);
 }
 
+
+/*
+DEBUG STATEMENTS
+printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
+printf("the mouse is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
+print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
+*/
