@@ -37,9 +37,8 @@ characters, but they should not exceed a size that cannot fit on one screen with
 //struct for locating various things around the maze
 struct MAZE_INFO
 {
-    CELL_T **MAZE_ARRAY;
-    int num_rows;
-    int num_col;
+    int rows;
+    int col;
     int cheese_row;
     int cheese_col;
     int mouse_row;
@@ -89,7 +88,7 @@ void print_maze(int number_of_rows, int number_of_columns, CELL_T **MAZE)
 }
 
 //takes a maze from a plain text file and saves the info into a 2D array
-CELL_T **input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
+CELL_T **input_maze_from_text(int num_of_rows,int num_of_col, char *file_in, MAZE_T *maze_info)
 {
     //initalizing some values 
     int row_num = 0;
@@ -116,6 +115,19 @@ CELL_T **input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
             char temp = buffer[column];
             temp_cell = create_new_cell(row_num, column, temp, false);
             output_array[row_num][column] = *temp_cell;
+
+            //locates the mouse and the cheese
+            if(temp == 'c')
+            {
+                maze_info->cheese_col = column;
+                maze_info->cheese_row = row_num;
+            }
+            else if(temp == 'm')
+            {
+                maze_info->mouse_col = column;
+                maze_info->mouse_row= row_num;
+            }
+
         }
         row_num++;
     }
@@ -127,32 +139,28 @@ CELL_T **input_maze_from_text(int num_of_rows,int num_of_col, char *file_in)
 //this is a program that will solve mazes from plain text files
 int main(int argc, char * argv[])
 {
-    //NEED TO CHANGE THIS TO GET USER INPUT
-    int number_of_rows = 9;
-    int number_of_columns = 12;
+    //hardcoded in the name of the in file
     char file_name[] = "Mazes.txt";
-    //NEED TO CHANGE THIS TO GET USER INPUT
-    /*
-    //Initializes maze info and starts filling it in with user input
-    MAZE_T* maze_info = (MAZE_T *)malloc(sizeof( MAZE_T *));
     
-    char file_name[1024] = "";
+    //initializing the maze_info struct
+    MAZE_T MazeInfo;
+    
+    //taking user input
     printf("\n Enter the number of rows: ");
-    scanf("%d", &maze_info->num_rows);
+    scanf("%d", &MazeInfo.rows);
     printf("\n Enter the number of cols: ");
-    scanf("%d", &maze_info->num_col);
-    printf("\n Enter the name of your file: ");
-    scanf("%c", &file_name);
-    */
-
-
+    scanf("%d", &MazeInfo.col);
 
     //Puts the plain text file into a 2D array called MAZE
-    MAZE_T* return_cell = (MAZE_T *)malloc(sizeof( MAZE_T ));
-    
     CELL_T **MAZE_ARRAY;
-    MAZE_ARRAY = input_maze_from_text(number_of_rows, number_of_columns, file_name);
-    print_maze(number_of_rows, number_of_columns, MAZE_ARRAY);
+    MAZE_ARRAY = input_maze_from_text(MazeInfo.rows, MazeInfo.col, file_name, &MazeInfo);
+    print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
+    printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
+    printf("the mouse is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
+
+    //Fills out the MazeInfo (i.e finds the mouse position and cheese)
+
+
 
     //DEPTH-FIRST SEARCH (STACK IMPLEMENTATION)
 
@@ -168,7 +176,7 @@ int main(int argc, char * argv[])
 
 
     // Free the memory that was allocated for each row in the 2D array
-    for (int i = 0; i < number_of_rows; i++)
+    for (int i = 0; i < MazeInfo.rows; i++)
     {
         free(MAZE_ARRAY[i]);
     }
