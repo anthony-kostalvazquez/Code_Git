@@ -37,6 +37,7 @@ characters, but they should not exceed a size that cannot fit on one screen with
 //struct for locating various things around the maze
 struct MAZE_INFO
 {
+    CELL_T **MAZE_ARRAY;
     int num_rows;
     int num_col;
     int cheese_row;
@@ -131,8 +132,24 @@ int main(int argc, char * argv[])
     int number_of_columns = 12;
     char file_name[] = "Mazes.txt";
     //NEED TO CHANGE THIS TO GET USER INPUT
+    /*
+    //Initializes maze info and starts filling it in with user input
+    MAZE_T* maze_info = (MAZE_T *)malloc(sizeof( MAZE_T *));
+    
+    char file_name[1024] = "";
+    printf("\n Enter the number of rows: ");
+    scanf("%d", &maze_info->num_rows);
+    printf("\n Enter the number of cols: ");
+    scanf("%d", &maze_info->num_col);
+    printf("\n Enter the name of your file: ");
+    scanf("%c", &file_name);
+    */
+
+
 
     //Puts the plain text file into a 2D array called MAZE
+    MAZE_T* return_cell = (MAZE_T *)malloc(sizeof( MAZE_T ));
+    
     CELL_T **MAZE_ARRAY;
     MAZE_ARRAY = input_maze_from_text(number_of_rows, number_of_columns, file_name);
     print_maze(number_of_rows, number_of_columns, MAZE_ARRAY);
