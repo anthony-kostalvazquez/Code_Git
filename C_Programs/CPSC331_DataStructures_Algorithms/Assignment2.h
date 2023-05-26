@@ -26,7 +26,7 @@ typedef struct Cell_Objects CELL_T;
 //prints out a cells values
 void print_cell(CELL_T *cell_to_print)
 {
-    printf("row = %d, column = %d, cell type = %c, visited %d\n", cell_to_print->row, cell_to_print->column, cell_to_print->cell_type, cell_to_print->visited);
+    printf("(row = %d, column = %d, cell type = %c, visited %d)", cell_to_print->row, cell_to_print->column, cell_to_print->cell_type, cell_to_print->visited);
 }
 
 //Creates a new cell given the inputs and returns a pointer to it
@@ -69,7 +69,9 @@ void printQueue(SLQUEUE_T *queue)
     //itterates through all of the nodes of queue
     for(SLQNODE_T *i = queue->rear; i != NULL; i = i->next)
     {
-        printf("%c", (i->cell)->cell_type);
+        //printf("%c", (i->cell)->cell_type);
+        //print_cell(i->cell);
+        printf("(%d, %d)", (i->cell)->row, (i->cell)->column);
         if(i->next != NULL)
         {
             printf(", ");

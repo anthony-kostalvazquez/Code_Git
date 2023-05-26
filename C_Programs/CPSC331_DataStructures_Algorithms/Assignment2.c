@@ -46,7 +46,35 @@ struct MAZE_INFO
 };
 typedef struct MAZE_INFO MAZE_T;
 
+//finds the neighbors of a given cell
+SLQUEUE_T *FindNeigbours(CELL_T **Maze, int CurRow, int CurCol)
+{
+    SLQUEUE_T *tmp = createQueue();
 
+    //Checks the right move (>)
+    if(Maze[CurRow][CurCol+1].cell_type != '1')
+    {
+        enqueue(&Maze[CurRow][CurCol+1], &tmp);
+    }
+    //Checks the left move (<)
+    if(Maze[CurRow][CurCol-1].cell_type != '1')
+    {
+        enqueue(&Maze[CurRow][CurCol-1], &tmp);
+    }
+    //Checks the up move (^)
+    if(Maze[CurRow-1][CurCol].cell_type != '1')
+    {
+        enqueue(&Maze[CurRow-1][CurCol], &tmp);
+    }
+    //Checks the down move (v)
+    if(Maze[CurRow+1][CurCol].cell_type != '1')
+    {
+        enqueue(&Maze[CurRow+1][CurCol], &tmp);
+    }
+
+
+    return(tmp);
+}
 
 //prints a maze out from a queue of cells
 //NOW WITH COOL COLOURS//
@@ -155,22 +183,68 @@ int main(int argc, char * argv[])
     //Puts the plain text file into a 2D array called MAZE
     CELL_T **MAZE_ARRAY;
     MAZE_ARRAY = input_maze_from_text(MazeInfo.rows, MazeInfo.col, file_name, &MazeInfo);
+    
+    printf("Staring Maze\n");
     print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
 
-
-
     //DEPTH-FIRST SEARCH (STACK IMPLEMENTATION)
+    printf("Depth First Search \n");
+
+
+
+
+
+    //printf("Mouse moved %d Times");
 
 
 
 
     //BREADTH-FIRST SEARCH (QUEUE IMPLEMENTATION)
+    printf("Breadth First Search \n");
+    SLQUEUE_T *SearchQueue = createQueue();
+    SLQUEUE_T *TrailQueue = createQueue();
+    CELL_T *StartingCell = &MAZE_ARRAY[MazeInfo.mouse_row][MazeInfo.mouse_col];
+
+    enqueue(StartingCell, &SearchQueue);
+    bool MoreToSearch = true;
+
+    while(!isEmptyQueue(SearchQueue) && MoreToSearch)
+    {
+        CELL_T *checking = dequeue(&SearchQueue);
+        MAZE_ARRAY[checking->row][checking->column].visited = true;
+        enqueue(checking,&TrailQueue);
+
+        if (checking->cell_type == 'c')
+        {
+            MoreToSearch = false;
+        }
+        else
+        {
+            printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
+            printf("the cheese is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
+            /*DEBUG
+            printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
+            printf("the cheese is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
+            printQueue(FindNeigbours(MAZE_ARRAY, checking->row, checking->column));
+            print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
+            MoreToSearch = false;
+            DEBUG*/
+            //itterates through the eligable Neighbours of the current cell
+            for(SLQNODE_T *i = FindNeigbours(MAZE_ARRAY, checking->row, checking->column)->rear; i != NULL; i = i->next)
+            {
+                if(!(i->cell)->visited)
+                {
+                    enqueue(i->cell, &SearchQueue);
+                }
+            }
+        }
+    }
+
+    printQueue(TrailQueue);
 
 
 
-
-
-
+    //printf("Mouse moved %d Times");
 
     // Free the memory that was allocated for each row in the 2D array
     for (int i = 0; i < MazeInfo.rows; i++)
