@@ -50,7 +50,41 @@ typedef struct MAZE_INFO MAZE_T;
 SLQUEUE_T *FindNeigbours(CELL_T **Maze, int CurRow, int CurCol)
 {
     SLQUEUE_T *tmp = createQueue();
+    char SymbolSelector[4] = "^>"
 
+    for(int i = 0; i <= 1; i++)
+    {
+        for (int j = 1; j >= 0 ; j--)
+        {
+            if(Maze[CurRow+(i-j)][CurCol+(i+j-1)].cell_type != '1')
+            {
+                CELL_T* tmpC = (CELL_T *)malloc(sizeof( CELL_T ));
+                //CELL_T tmpC = 
+                *tmpC = *(&Maze[CurRow+(i-j)][CurCol+(i+j-1)]);
+                //tmpC->cell_type = '>';
+                enqueue(tmpC, &tmp);
+            }
+
+            //printf("\n");
+
+            //print_cell(&Maze[CurRow+(i-j)][CurCol+(i+j-1)]);
+            //print_cell(&tmpC);
+            //printf("\n");
+
+        }
+        
+    }
+    printQueue(tmp);
+
+    /*
+    //Checks the up move (^)
+    if(Maze[CurRow-1][CurCol].cell_type != '1')
+    {
+        CELL_T *tmp123 = &Maze[CurRow-1][CurCol];
+        enqueue(tmp123, &tmp);
+        //enqueue(&Maze[CurRow-1][CurCol], &tmp);
+        //Maze[CurRow][CurCol+1].cell_type = '^';
+    }
     //Checks the right move (>)
     if(Maze[CurRow][CurCol+1].cell_type != '1')
     {
@@ -60,19 +94,15 @@ SLQUEUE_T *FindNeigbours(CELL_T **Maze, int CurRow, int CurCol)
     if(Maze[CurRow][CurCol-1].cell_type != '1')
     {
         enqueue(&Maze[CurRow][CurCol-1], &tmp);
-    }
-    //Checks the up move (^)
-    if(Maze[CurRow-1][CurCol].cell_type != '1')
-    {
-        enqueue(&Maze[CurRow-1][CurCol], &tmp);
+        //Maze[CurRow][CurCol+1].cell_type = '<';
     }
     //Checks the down move (v)
     if(Maze[CurRow+1][CurCol].cell_type != '1')
     {
         enqueue(&Maze[CurRow+1][CurCol], &tmp);
+        //Maze[CurRow][CurCol+1].cell_type = 'v';
     }
-
-
+    */
     return(tmp);
 }
 
@@ -201,6 +231,10 @@ int main(int argc, char * argv[])
 
     //BREADTH-FIRST SEARCH (QUEUE IMPLEMENTATION)
     printf("Breadth First Search \n");
+
+    printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
+    printf("the cheese is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
+
     SLQUEUE_T *SearchQueue = createQueue();
     SLQUEUE_T *TrailQueue = createQueue();
     CELL_T *StartingCell = &MAZE_ARRAY[MazeInfo.mouse_row][MazeInfo.mouse_col];
@@ -210,6 +244,10 @@ int main(int argc, char * argv[])
 
     while(!isEmptyQueue(SearchQueue) && MoreToSearch)
     {
+        print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
+        printf("\n");
+
+
         CELL_T *checking = dequeue(&SearchQueue);
         MAZE_ARRAY[checking->row][checking->column].visited = true;
         enqueue(checking,&TrailQueue);
@@ -220,8 +258,7 @@ int main(int argc, char * argv[])
         }
         else
         {
-            printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
-            printf("the cheese is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
+
             /*DEBUG
             printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
             printf("the cheese is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
@@ -229,7 +266,9 @@ int main(int argc, char * argv[])
             print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
             MoreToSearch = false;
             DEBUG*/
+
             //itterates through the eligable Neighbours of the current cell
+            
             for(SLQNODE_T *i = FindNeigbours(MAZE_ARRAY, checking->row, checking->column)->rear; i != NULL; i = i->next)
             {
                 if(!(i->cell)->visited)
@@ -237,10 +276,12 @@ int main(int argc, char * argv[])
                     enqueue(i->cell, &SearchQueue);
                 }
             }
+            
         }
     }
 
     printQueue(TrailQueue);
+    printf("The mouse moved %d\n", SizeQueue(TrailQueue));
 
 
 

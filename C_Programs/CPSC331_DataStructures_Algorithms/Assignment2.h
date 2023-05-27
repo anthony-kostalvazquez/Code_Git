@@ -81,6 +81,22 @@ void printQueue(SLQUEUE_T *queue)
     printf(" <-front\n");
 }
 
+//gets the size of a given queue
+int SizeQueue(SLQUEUE_T *queue)
+{
+    int count = 0;
+
+    if(queue)
+    {
+    //itterates through all of the nodes of queue
+        for(SLQNODE_T *i = queue->rear; i != NULL; i = i->next)
+        {
+            count++;
+        }
+    }
+    return(count);
+}
+
 //creates a new node with an integer element
 SLQNODE_T *newNode(CELL_T *cell_to_input)
 {
