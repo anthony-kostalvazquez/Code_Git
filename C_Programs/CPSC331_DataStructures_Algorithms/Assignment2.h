@@ -60,21 +60,35 @@ struct SingleLinkedQueue
 };
 typedef struct SingleLinkedQueue SLQUEUE_T;
 
+//checks if the queue is empty
+bool isEmptyQueue(SLQUEUE_T *queue)
+{
+    return(queue->front == NULL);
+}
+
+//always returns false
+bool isFullQueue(SLQUEUE_T *queue)
+{
+    return(false);
+}
+
 //prints the queue with front and rear markers
 void printQueue(SLQUEUE_T *queue)
 {
 
     printf("rear-> ");
-    if(queue)
-    //itterates through all of the nodes of queue
-    for(SLQNODE_T *i = queue->rear; i != NULL; i = i->next)
+    if(!isEmptyQueue(queue))
     {
-        //printf("%c", (i->cell)->cell_type);
-        //print_cell(i->cell);
-        printf("(%d, %d)", (i->cell)->row, (i->cell)->column);
-        if(i->next != NULL)
+        //itterates through all of the nodes of queue
+        for(SLQNODE_T *i = queue->rear; i != NULL; i = i->next)
         {
-            printf(", ");
+            //printf("%c", (i->cell)->cell_type);
+            //print_cell(i->cell);
+            printf("(%d, %d)", (i->cell)->row, (i->cell)->column);
+            if(i->next != NULL)
+            {
+                printf(", ");
+            }
         }
     }
 
@@ -116,18 +130,6 @@ SLQUEUE_T *createQueue()
 
 }
 
-//checks if the queue is empty
-bool isEmptyQueue(SLQUEUE_T *queue)
-{
-    return(queue->front == NULL);
-}
-
-//always returns false
-bool isFullQueue(SLQUEUE_T *queue)
-{
-    return(false);
-}
-
 // FIFO this will add from the rear and push the front up
 // rear [enqueue]->[val]->[val]->[val] front
 void enqueue (CELL_T *cell_to_input, SLQUEUE_T **queue)
@@ -146,33 +148,37 @@ void enqueue (CELL_T *cell_to_input, SLQUEUE_T **queue)
 //rear [val]->[val]->[val] front
 CELL_T *dequeue (SLQUEUE_T **queue)
 {
-
-    CELL_T *return_cell = ((*queue)->front)->cell;
-
-
-    if ((*queue)->front == (*queue)->rear)
+    if(!isEmptyQueue(*queue))
     {
-        free((*queue)->front);
-        (*queue)->front = NULL;
-        (*queue)->rear = NULL;
+        CELL_T *return_cell = ((*queue)->front)->cell;
+        if ((*queue)->front == (*queue)->rear)
+        {
+            free((*queue)->front);
+            (*queue)->front = NULL;
+            (*queue)->rear = NULL;
 
+        }
+        else
+        {
+            //create a temporary pointer
+            SLQNODE_T *tmp = (*queue)->rear;
+            //climb through the queue until you find the second to last node
+            while(tmp->next != (*queue)->front)
+            {
+                tmp = tmp->next;
+            }
+            //now that tmp is a pointer to the second to last node we update this to front and delete the last node
+            free(tmp->next);
+
+            (*queue)->front = tmp;
+            (*queue)->front->next = NULL;
+        }
+        return(return_cell);
     }
     else
     {
-        //create a temporary pointer
-        SLQNODE_T *tmp = (*queue)->rear;
-        //climb through the queue until you find the second to last node
-        while(tmp->next != (*queue)->front)
-        {
-            tmp = tmp->next;
-        }
-        //now that tmp is a pointer to the second to last node we update this to front and delete the last node
-        free(tmp->next);
-
-        (*queue)->front = tmp;
-        (*queue)->front->next = NULL;
+        printf("UNDERFLOW in dequeue- Cannot remove from an empty queue\n");
     }
-    return(return_cell);
 }
 
 //-----------------------------------------Double linked stack implementation -----------------------------------------//
