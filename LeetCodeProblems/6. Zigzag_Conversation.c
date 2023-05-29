@@ -7,55 +7,61 @@
 
 char * convert(char * s, int numRows)
 {
-    char *ReturnString = malloc(sizeof(char) * (strlen(s)));
+    char *ReturnString = malloc(sizeof(char) * (strlen(s) + 1));
     int JumpLength = (2 * numRows) - 2;
     
     printf("%ld \n", sizeof(char) * (strlen(s) + 1));
 
     int PositionInReturnString = 0;
 
-    for(int i = 0; i < numRows; i++)
+    if(numRows > 1)
     {
-        if(i ==0 || i == numRows-1)
+        for(int i = 0; i < numRows; i++)
         {
-            for(int j = 0; i + JumpLength*j < strlen(s); j++)
+            if(i ==0 || i == numRows-1)
             {
-                ReturnString[PositionInReturnString] = s[i + JumpLength*j];
-                printf("%d %c %d %d\n",i + JumpLength*j, s[i + JumpLength*j], i + JumpLength*j, PositionInReturnString);
-                PositionInReturnString++;
-            }
-        }
-        else
-        {
-            for(int j = 0; (i + JumpLength*j < strlen(s)) || ((-i + JumpLength) + JumpLength*j < strlen(s)) ; j++)
-            {
-                if(i + JumpLength*j < strlen(s))
+                for(int j = 0; i + JumpLength*j < strlen(s); j++)
                 {
                     ReturnString[PositionInReturnString] = s[i + JumpLength*j];
-                    PositionInReturnString++;
                     printf("%d %c %d %d\n",i + JumpLength*j, s[i + JumpLength*j], i + JumpLength*j, PositionInReturnString);
-                }
-
-                if((-i + JumpLength) + JumpLength*j < strlen(s))
-                {
-                    ReturnString[PositionInReturnString] = s[(-i + JumpLength) + JumpLength*j];
                     PositionInReturnString++;
-                    printf("%d %c\n",(-i + JumpLength) + JumpLength*j, s[(-i + JumpLength) + JumpLength*j]);
                 }
+            }
+            else
+            {
+                for(int j = 0; (i + JumpLength*j < strlen(s)) || ((-i + JumpLength) + JumpLength*j < strlen(s)) ; j++)
+                {
+                    if(i + JumpLength*j < strlen(s))
+                    {
+                        ReturnString[PositionInReturnString] = s[i + JumpLength*j];
+                        PositionInReturnString++;
+                        printf("%d %c %d %d\n",i + JumpLength*j, s[i + JumpLength*j], i + JumpLength*j, PositionInReturnString);
+                    }
 
+                    if((-i + JumpLength) + JumpLength*j < strlen(s))
+                    {
+                        ReturnString[PositionInReturnString] = s[(-i + JumpLength) + JumpLength*j];
+                        PositionInReturnString++;
+                        printf("%d %c\n",(-i + JumpLength) + JumpLength*j, s[(-i + JumpLength) + JumpLength*j]);
+                    }
+
+                }
             }
         }
+        ReturnString[PositionInReturnString] = '\0';
     }
-
-    ReturnString[PositionInReturnString] = '\0';
+    else
+    {
+        strcpy(ReturnString, s);
+    }
 
     return(ReturnString);
 }
 
 int main()
 {
-    char input_string[1000] = "PAYPALISHIRING";
-    int numRows = 3;
+    char input_string[1000] = "A";
+    int numRows = 1;
 
 
     char *outputarr = convert(input_string, numRows);
