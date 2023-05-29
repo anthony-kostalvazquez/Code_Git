@@ -300,11 +300,3 @@ int main(int argc, char * argv[])
 
     return(0);
 }
-
-
-/*
-DEBUG STATEMENTS
-printf("the mouse is at row: %d col: %d\n", MazeInfo.mouse_row, MazeInfo.mouse_col);
-printf("the mouse is at row: %d col: %d\n", MazeInfo.cheese_row, MazeInfo.cheese_col);
-print_maze(MazeInfo.rows, MazeInfo.col, MAZE_ARRAY);
-*/
