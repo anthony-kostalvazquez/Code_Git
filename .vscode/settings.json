@@ -15,6 +15,8 @@
         "utility": "c",
         "doublelinkedstack.h": "c",
         "singlelinkedlist.h": "c",
-        "singlelinkedqueue.h": "c"
+        "singlelinkedqueue.h": "c",
+        "string_view": "c",
+        "initializer_list": "c"
     }
 }
