@@ -7,9 +7,9 @@
 //Format = 0 prints line by line
 //Format = 1 prints with commas
 //Format = 2 prints line by line with indexes
-void PrintIntArray(int *ptr, int size, int format)
+void PrintIntArray(int *ptr, int format)
 {
-    for (int i = 0; i < size; i++)
+    for (int i = 0; ptr[i] != '\0'; i++)
     {
         if(format == 0)
         {
