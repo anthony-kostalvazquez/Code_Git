@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "SingleLinkedQueue.h"
+#include "../AnthonysCLib/SingleLinkedQueue.h"
 
 
 int main()

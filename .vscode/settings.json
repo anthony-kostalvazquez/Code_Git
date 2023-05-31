@@ -12,6 +12,9 @@
         "array": "c",
         "tuple": "c",
         "type_traits": "c",
-        "utility": "c"
+        "utility": "c",
+        "doublelinkedstack.h": "c",
+        "singlelinkedlist.h": "c",
+        "singlelinkedqueue.h": "c"
     }
 }

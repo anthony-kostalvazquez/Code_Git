@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 //#include "LinkedStack.h"
-#include "DoubleLinkedStack.h"
+#include "../AnthonysCLib/DoubleLinkedStack.h"
 
 int main()
 {

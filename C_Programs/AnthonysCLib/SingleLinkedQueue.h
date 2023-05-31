@@ -7,7 +7,7 @@ struct Node
     int value;
     struct Node *next;
 };
-typedef struct Node NODE_T;
+typedef struct Node QUEUE_NODE_T;
 
 struct LinkedQueue
 {
@@ -23,7 +23,7 @@ void printQueue(LQUEUE_T *queue)
     printf("rear-> ");
     if(queue)
     //itterates through all of the nodes of queue
-    for(NODE_T *i = queue->rear; i != NULL; i = i->next)
+    for(QUEUE_NODE_T *i = queue->rear; i != NULL; i = i->next)
     {
         printf("%d", i->value);
         if(i->next != NULL)
@@ -36,9 +36,9 @@ void printQueue(LQUEUE_T *queue)
 }
 
 //creates a new node with an integer element
-NODE_T *newNode(int element)
+QUEUE_NODE_T *newNode(int element)
 {
-    NODE_T *tmp = (NODE_T*)malloc(sizeof(NODE_T));
+    QUEUE_NODE_T *tmp = (QUEUE_NODE_T*)malloc(sizeof(QUEUE_NODE_T));
     tmp->value = element;
     tmp->next = NULL;
     return tmp;
@@ -47,7 +47,7 @@ NODE_T *newNode(int element)
 //creates a new Queue and sets front and read to null
 LQUEUE_T *createQueue()
 {
-    LQUEUE_T *tmp = (LQUEUE_T *)malloc(sizeof(NODE_T));
+    LQUEUE_T *tmp = (LQUEUE_T *)malloc(sizeof(QUEUE_NODE_T));
     tmp->front = NULL;
     tmp->rear = NULL;
     return tmp;
@@ -70,7 +70,7 @@ bool isFull(LQUEUE_T *queue)
 // rear [enqueue]->[val]->[val]->[val] front
 void enqueue (int element, LQUEUE_T **queue)
 {
-    NODE_T *nn = newNode(element);
+    QUEUE_NODE_T *nn = newNode(element);
     nn->next = (*queue)->rear;
     (*queue)->rear = nn;
 
@@ -98,7 +98,7 @@ int dequeue (LQUEUE_T **queue)
     else
     {
         //create a temporary pointer
-        NODE_T *tmp = (*queue)->rear;
+        QUEUE_NODE_T *tmp = (*queue)->rear;
         //climb through the queue until you find the second to last node
         while(tmp->next != (*queue)->front)
         {
