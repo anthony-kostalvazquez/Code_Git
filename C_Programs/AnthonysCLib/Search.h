@@ -15,3 +15,26 @@ int SequentialSearch(int val, int* array)
 
     return(-1);
 }
+
+//array must be a sorted list
+//recursive alg to search through a array for val and return the index
+int BinarySearch(int val, int* array, int low, int high)
+{
+    if(low > high)
+    {
+        return(-1);
+    }
+    int mid = (low + high)/2;
+    if(val == array[mid])
+    {
+        return mid;
+    }
+    else if(val < array[mid])
+    {
+        return BinarySearch(val, array, low, mid-1);
+    }
+    else
+    {
+        return BinarySearch(val, array, mid+1, high);
+    }
+}

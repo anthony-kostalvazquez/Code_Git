@@ -2,17 +2,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <assert.h>
 
 #include "../AnthonysCLib/Arrays.h"
 #include "../AnthonysCLib/Search.h"
 #include "../AnthonysCLib/Sort.h"
 
+//#define NDEBUG
 
 int main()
 {
-    //initializes rand seed depending on the time
-    srand(time(NULL));
-
     //initalizes the variables i need to time the various searches
     clock_t start, end;
     double cpu_time_used;
@@ -28,17 +27,21 @@ int main()
     int *SearchArray;
     SearchArray = InitRandIntArray(S_size, 5000, false);
 
-
-    PrintIntArray(ElementsArray, 2);
-
-    PrintIntArray(SearchArray, 2);
+    //SEARCHES
+    for (int S_size = 1000; i < count; i++)
+    {
+        /* code */
+    }
+    
 
     //----------SEQUENTIAL SEARCH----------//
     start = clock();
     //searches the search array for the elements in the elements array
     for (int i = 0; ElementsArray[i] != '\0'; i++)
     {
-        SequentialSearch(ElementsArray[i], SearchArray);
+        int tmp = SequentialSearch(ElementsArray[i], SearchArray);
+        
+        assert(SearchArray[tmp] == ElementsArray[i] || tmp == -1);
     }
     end = clock();
 
@@ -48,10 +51,21 @@ int main()
 
 
     //----------BINARY SEARCH----------//
-    int *tmp;
-    tmp = InitRandIntArray(100, 100, false);
-    BubbleSort(tmp);
+    BubbleSort(SearchArray);
 
+    start = clock();
+    //searches the search array for the elements in the elements array
+    for (int i = 0; ElementsArray[i] != '\0'; i++)
+    {
+        int tmp = BinarySearch(ElementsArray[i], SearchArray, 0, S_size);
+
+        assert(SearchArray[tmp] == ElementsArray[i] || tmp == -1);
+    }
+    end = clock();
+
+    //printing off the time taken
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("The sequential search took %f seconds to execute\n", cpu_time_used);
 
     /*
     for (int i = 0; i < 10000; i++)
@@ -65,6 +79,8 @@ int main()
         int tmp = SequentialSearch(ElementsArray[i], SearchArray);
         printf("the index of %d is %d\nPROOF E_ARR[%d] = %d & S_ARR[%d] = %d\n",ElementsArray[i], tmp, i, ElementsArray[i], tmp, SearchArray[tmp]);
     }
+
+    PrintIntArray(ElementsArray, 2);
 
     */
 
