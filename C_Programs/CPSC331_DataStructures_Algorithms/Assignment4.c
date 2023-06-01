@@ -31,6 +31,11 @@ int main()
         //generate an array of integers called the search array. This is the array to be searched. the values in the array are from 0 to 5000.
         int *SearchArray = InitRandIntArray(S_size, 5000, false);
 
+        start = clock();
+        BubbleSort(SearchArray, S_size);
+        end = clock();
+        printf("BubbleSort took %f s\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+        
         //resets the times to 0
         double SeqTime = 0;
         double BinTime = 0;
@@ -42,23 +47,24 @@ int main()
         {
             //--------------------SEQUENTIAL SEARCH--------------------//
             start = clock();
-            int tmp1 = SequentialSearch(ElementsArray[i], SearchArray, S_size);
+            tmp = SequentialSearch(ElementsArray[i], SearchArray, S_size);
             end = clock();
 
             SeqTime += ((double) (end - start)) / CLOCKS_PER_SEC;
-            //assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
+    
+
+            assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
             //--------------------HASH SEARCH--------------------//
 
 
 
             //--------------------BINARY SEARCH--------------------//
-            BubbleSort(SearchArray, S_size);
             start = clock();
             tmp = BinarySearch(ElementsArray[i], SearchArray, 0, S_size);
             end = clock();
             
             BinTime += ((double) (end - start)) / CLOCKS_PER_SEC;
-            //assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
+            assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
         }
     
         printf("for array of size %d Sequential search took %fs\n", S_size, SeqTime);
