@@ -7,9 +7,9 @@
 //Format = 0 prints line by line
 //Format = 1 prints with commas
 //Format = 2 prints line by line with indexes
-void PrintIntArray(int *ptr, int format)
+void PrintIntArray(int *ptr, int format, int size)
 {
-    for (int i = 0; ptr[i] != '\0'; i++)
+    for (int i = 0; i < size; i++)
     {
         if(format == 0)
         {
@@ -34,7 +34,7 @@ int *InitRandIntArray(int size, int IntRangeMax, bool IsUnique)
     srand(time(NULL));
 
     //allocates the mem based on size
-    int *OutArr = malloc(sizeof(int) * size);
+    int *OutArr = malloc(sizeof(int) * (size + 1));
 
     if(!IsUnique)
     {
@@ -57,6 +57,7 @@ int *InitRandIntArray(int size, int IntRangeMax, bool IsUnique)
         }
     }
 
+    OutArr[size] = '\n';
 
     return(OutArr);
 }

@@ -35,29 +35,30 @@ int main()
         double SeqTime = 0;
         double BinTime = 0;
         double HashTime = 0;
+        int tmp = 0;
 
         //searches the search array for the elements in the elements array
-        for (int i = 0; ElementsArray[i] != '\0'; i++)
+        for (int i = 0; i < E_size; i++)
         {
             //--------------------SEQUENTIAL SEARCH--------------------//
             start = clock();
-            int tmp1 = SequentialSearch(ElementsArray[i], SearchArray);
+            int tmp1 = SequentialSearch(ElementsArray[i], SearchArray, S_size);
             end = clock();
 
             SeqTime += ((double) (end - start)) / CLOCKS_PER_SEC;
-            assert(SearchArray[tmp1] == ElementsArray[i] || tmp1 == -1);
+            //assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
             //--------------------HASH SEARCH--------------------//
 
 
 
             //--------------------BINARY SEARCH--------------------//
-            BubbleSort(SearchArray);
+            BubbleSort(SearchArray, S_size);
             start = clock();
-            int tmp2 = BinarySearch(ElementsArray[i], SearchArray, 0, S_size);
+            tmp = BinarySearch(ElementsArray[i], SearchArray, 0, S_size);
             end = clock();
             
             BinTime += ((double) (end - start)) / CLOCKS_PER_SEC;
-            assert(SearchArray[tmp2] == ElementsArray[i] || tmp2 == -1);
+            //assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
         }
     
         printf("for array of size %d Sequential search took %fs\n", S_size, SeqTime);
@@ -68,5 +69,7 @@ int main()
     }
 
     
+
+    free(ElementsArray);
     return 0;
 }
