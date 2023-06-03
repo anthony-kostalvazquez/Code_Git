@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 struct Single_Linked_List_Node
 {
     int value;
     struct Single_Linked_List_Node* next;
 };
-
 typedef struct Single_Linked_List_Node SLL_T;
 
 //prints out the entire linked list given the head
@@ -61,4 +61,17 @@ SLL_T *insert_after_node(SLL_T *SLL_To_insert_after, SLL_T* new_node)
 {
     new_node->next = SLL_To_insert_after->next;
     SLL_To_insert_after->next = new_node;
+}
+
+//Deletes a linked list given the head
+void DeleteList(SLL_T **head)
+{
+    SLL_T *tmp = (*head)->next;
+    while(tmp != NULL)
+    {
+        free(*head);
+        *head = tmp;
+        tmp = tmp->next;
+    }
+    free(*head);
 }

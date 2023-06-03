@@ -1,3 +1,5 @@
+#define NDEBUG
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -8,44 +10,43 @@
 #include "../AnthonysCLib/Search.h"
 #include "../AnthonysCLib/Sort.h"
 
-//#define NDEBUG
+
 
 
 
 int main()
 {
+    //Starts the print off
+    printf("Size\tSequential Search Time\tBinary Search time\tHash Search Time\n");
+
+
     //initalizes the variables to time the various searches
     clock_t start, end;
     double cpu_time_used;
-
+    int tmp = 0;
 
     //You will generate 99 distinct random numbers between 0 and 5000 and store them in an array of size 100. Add 5001 as the 100th cell in the array.
     int E_size = 100;
     int *ElementsArray = InitRandIntArray(E_size, 5000, true);
     ElementsArray[99] = 5001;
 
+
     //creates random search arrays of size 1,000 - 1,000,000 
-    for (int S_size = 5000; S_size <= 5005; S_size++)
+    for (int S_size = 1000; S_size <= 1001; S_size++)
     {
         
         //generate an array of integers called the search array. This is the array to be searched. the values in the array are from 0 to 5000.
         int *SearchArray = InitRandIntArray(S_size, 5000, false);
+    
 
-        start = clock();
-        BubbleSort(SearchArray, S_size);
-        end = clock();
-        printf("BubbleSort took %f s\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-        
         //resets the times to 0
         double SeqTime = 0;
         double BinTime = 0;
         double HashTime = 0;
-        int tmp = 0;
 
-        //searches the search array for the elements in the elements array
+        //--------------------SEQUENTIAL SEARCH--------------------//
         for (int i = 0; i < E_size; i++)
         {
-            //--------------------SEQUENTIAL SEARCH--------------------//
             start = clock();
             tmp = SequentialSearch(ElementsArray[i], SearchArray, S_size);
             end = clock();
@@ -54,11 +55,20 @@ int main()
     
 
             assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
-            //--------------------HASH SEARCH--------------------//
+        }
+
+        //--------------------HASH SEARCH--------------------//
+        for (int i = 0; i < E_size; i++)
+        {
 
 
+        }
 
-            //--------------------BINARY SEARCH--------------------//
+        //--------------------BINARY SEARCH--------------------//
+        //sorting the search array
+        BubbleSort(SearchArray, S_size);
+        for (int i = 0; i < E_size; i++)
+        {
             start = clock();
             tmp = BinarySearch(ElementsArray[i], SearchArray, 0, S_size);
             end = clock();
@@ -67,9 +77,10 @@ int main()
             assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
         }
     
-        printf("for array of size %d Sequential search took %fs\n", S_size, SeqTime);
-        printf("for array of size %d Binary search took %fs\n", S_size, BinTime);
-    
+        assert(printf("for array of size %d Sequential search took %fs\n", S_size, SeqTime));
+        assert(printf("for array of size %d Binary search took %fs\n", S_size, BinTime));
+
+        printf("%d\t%f\t%f\t%f\n",S_size, SeqTime, BinTime, HashTime);
         //frees the memory of the search array
         free(SearchArray);
     }

@@ -43,9 +43,9 @@ int *InitRandIntArray(int size, int IntRangeMax, bool IsUnique)
             OutArr[i] = rand() % IntRangeMax;
         }
     }
+    //this is the Knuth Algorithm (Will be in ascending order)
     else
     {
-        //this is the Knuth Algorithm (Will be in ascending order)
         int in, im;
         im = 0;
 
@@ -56,8 +56,6 @@ int *InitRandIntArray(int size, int IntRangeMax, bool IsUnique)
                 OutArr[im++] = in;
         }
     }
-
-    OutArr[size] = '\n';
 
     return(OutArr);
 }

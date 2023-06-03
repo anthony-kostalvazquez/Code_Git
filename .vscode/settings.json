@@ -17,6 +17,9 @@
         "singlelinkedlist.h": "c",
         "singlelinkedqueue.h": "c",
         "string_view": "c",
-        "initializer_list": "c"
+        "initializer_list": "c",
+        "arrays.h": "c",
+        "assert.h": "c",
+        "search.h": "c"
     }
 }

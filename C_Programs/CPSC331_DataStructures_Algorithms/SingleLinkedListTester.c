@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #include "../AnthonysCLib/SingleLinkedList.h"
 
@@ -22,8 +23,11 @@ int main()
 
     insert_after_node(tmp, create_new_node(75));
 
-
     printlist(head);
+
+    DeleteList(&head);
+
+    //printlist(head);
 
     return 0;
 }
