@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int INPUT_ARR_1[] = {1,2,3,4};
+int INPUT_ARR_1[] = {4,3,2,1};
 
 
 //linked list implementation
@@ -67,64 +67,58 @@ node_t *insert_after_node(node_t *node_to_insert_after, node_t* new_node)
 }
 
 
-//Takes a link list and flips it
-node_t *List_Flip(node_t *head)
-{
-    node_t *return_head = NULL;
-    
-    while(head != NULL)
-    {
-        insert_at_head(&return_head, create_new_node(head->val));
-        head = head->next;
-    }
-
-    return(return_head);
-}
-
 struct ListNode* swapPairs(struct ListNode* head)
 {
+    node_t *OneAhead, *current, *prev;
+    current = head;
+    int i = 0;
 
+    //jumps the current node by 2 every time 
+    while(current != NULL && current->next != NULL)
+    {
+        OneAhead = (current->next);
 
+        //points current-next to two node ahead
+        current->next = ((current->next)->next);
 
+        //One ahead to the current node
+        OneAhead->next = current;
+
+        //if this is the first swap it moves the head position
+        if(current == head)
+        {
+            head = OneAhead;
+        }
+        else
+        {
+            prev->next = OneAhead;
+        }
+
+        prev = current;
+        current = current->next;
+    }
+    
+    return(head);
 }
 
 int main()
 {
-    node_t *headl1 = NULL, *headl2 = NULL;
+    node_t *headl1 = NULL;
     node_t *tmp;
 
     for (int i = 0; i < sizeof(INPUT_ARR_1)/sizeof(INPUT_ARR_1[0]); i++)
     {
         insert_at_head(&headl1, create_new_node(INPUT_ARR_1[i]));
     }
-    
 
 
+    printf("Starting List = ");
     printlist(headl1);
-    printlist(headl2);
 
-    tmp = swapPairs()
+    tmp = swapPairs(headl1);
 
+    printf("Ending List = ");
     printlist(tmp);
-
-    /*
-    struct ListNode l1,l2;
-    
-    struct ListNode nn;
-    l1.val = INPUT_ARR_1[0];
-    l1.next = &nn;
-
-    struct ListNode nn1;
-    nn.val = INPUT_ARR_1[1];
-    nn.next = &nn1;
-
-    nn1.val = INPUT_ARR_1[2];
-    nn1.next = NULL;
-
-    addTwoNumbers(&l1, &l2);
-    */
-
-
 
     return(0);
 }
