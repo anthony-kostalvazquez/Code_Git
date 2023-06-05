@@ -9,10 +9,9 @@
 #include "../AnthonysCLib/Arrays.h"
 #include "../AnthonysCLib/Search.h"
 #include "../AnthonysCLib/Sort.h"
+#include "../AnthonysCLib/HashTable.h"
 
-
-
-
+#define TABLE_SIZE 9937
 
 int main()
 {
@@ -58,6 +57,10 @@ int main()
         }
 
         //--------------------HASH SEARCH--------------------//
+
+        NODE_T **table = HashTabFromArray(SearchArray, TABLE_SIZE, S_size);
+        PrintHashTable(table, TABLE_SIZE);
+
         for (int i = 0; i < E_size; i++)
         {
 

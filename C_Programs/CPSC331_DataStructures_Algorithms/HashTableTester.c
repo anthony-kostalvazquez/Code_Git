@@ -5,24 +5,31 @@
 
 #include "../AnthonysCLib/HashTable.h"
 
-
+#define TABLE_SIZE 9937
 
 int main()
 {
-    HASH_T* table = NULL;
-
-    for (int i = 0; i < 1000; i++)
-    {
-        
-    }
+    NODE_T **table = CreateHashTable(TABLE_SIZE);
+    assert(table[2] == NULL);
     
 
-    printf("10 => %d\n", hash(10));
-    printf("100 => %d\n", hash(100));
-    printf("105 => %d\n", hash(105));
-    printf("103 => %d\n", hash(103));
-    printf("1010 => %d\n", hash(1010));
+    printf("10 => %d\n", hash(10, TABLE_SIZE) );
+    printf("100 => %d\n", hash(100, TABLE_SIZE));
+    printf("105 => %d\n", hash(105, TABLE_SIZE));
+    printf("103 => %d\n", hash(103, TABLE_SIZE));
+    printf("1010 => %d\n", hash(1010, TABLE_SIZE));
 
+    add(10, table, TABLE_SIZE);
+
+    add(10, table, TABLE_SIZE);
+    add(100, table, TABLE_SIZE);
+    add(105, table, TABLE_SIZE);
+    add(103, table, TABLE_SIZE);
+    add(1010, table, TABLE_SIZE);
+
+
+    PrintHashTable(table, TABLE_SIZE);
+    DeleteHashTable(table, TABLE_SIZE);
     return 0;
 }
 

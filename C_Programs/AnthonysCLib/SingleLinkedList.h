@@ -41,7 +41,7 @@ SLL_T *insert_at_head(SLL_T **head, SLL_T *SLL_To_insert)
     return SLL_To_insert;
 }
 
-//finds a node 
+//finds a node and returns its position if its not in the list it will return null
 SLL_T *find_node(SLL_T *head, int value)
 {
     SLL_T *tmp = head;

@@ -20,6 +20,9 @@
         "initializer_list": "c",
         "arrays.h": "c",
         "assert.h": "c",
-        "search.h": "c"
+        "search.h": "c",
+        "*.tcc": "c",
+        "hashtable.h": "c",
+        "algorithm": "c"
     }
 }
