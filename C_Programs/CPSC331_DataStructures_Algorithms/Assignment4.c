@@ -22,7 +22,10 @@ int main()
     //initalizes the variables to time the various searches
     clock_t start, end;
     double cpu_time_used;
-    int tmp = 0;
+    int tmpss = 0;
+    int tmpbs = 0;
+    NODE_T *tmphs = NULL;
+
 
     //You will generate 99 distinct random numbers between 0 and 5000 and store them in an array of size 100. Add 5001 as the 100th cell in the array.
     int E_size = 100;
@@ -31,7 +34,7 @@ int main()
 
 
     //creates random search arrays of size 1,000 - 1,000,000 
-    for (int S_size = 1000; S_size <= 1001; S_size++)
+    for (int S_size = 1000; S_size <= 1005; S_size++)
     {
         
         //generate an array of integers called the search array. This is the array to be searched. the values in the array are from 0 to 5000.
@@ -47,24 +50,27 @@ int main()
         for (int i = 0; i < E_size; i++)
         {
             start = clock();
-            tmp = SequentialSearch(ElementsArray[i], SearchArray, S_size);
+            tmpss = SequentialSearch(ElementsArray[i], SearchArray, S_size);
             end = clock();
 
             SeqTime += ((double) (end - start)) / CLOCKS_PER_SEC;
     
-
-            assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
+            assert(tmpss == -1 || SearchArray[tmpss] == ElementsArray[i]);
         }
 
         //--------------------HASH SEARCH--------------------//
-
-        NODE_T **table = HashTabFromArray(SearchArray, TABLE_SIZE, S_size);
-        PrintHashTable(table, TABLE_SIZE);
+        NODE_T **SearchHashTable = HashTabFromArray(SearchArray, TABLE_SIZE, S_size);
+        //PrintHashTable(table, TABLE_SIZE);
 
         for (int i = 0; i < E_size; i++)
         {
+            start = clock();
+            tmphs = HashSearch(ElementsArray[i], SearchHashTable, TABLE_SIZE);
+            end = clock();
 
+            HashTime += ((double) (end - start)) / CLOCKS_PER_SEC;
 
+            assert(tmphs == NULL || temphs->val = ElementsArray[i]);
         }
 
         //--------------------BINARY SEARCH--------------------//
@@ -73,19 +79,21 @@ int main()
         for (int i = 0; i < E_size; i++)
         {
             start = clock();
-            tmp = BinarySearch(ElementsArray[i], SearchArray, 0, S_size);
+            tmpbs = BinarySearch(ElementsArray[i], SearchArray, 0, S_size);
             end = clock();
             
             BinTime += ((double) (end - start)) / CLOCKS_PER_SEC;
-            assert(tmp == -1 || SearchArray[tmp] == ElementsArray[i]);
+            assert(tmpbs == -1 || SearchArray[tmpbs] == ElementsArray[i]);
         }
     
         assert(printf("for array of size %d Sequential search took %fs\n", S_size, SeqTime));
         assert(printf("for array of size %d Binary search took %fs\n", S_size, BinTime));
 
         printf("%d\t%f\t%f\t%f\n",S_size, SeqTime, BinTime, HashTime);
-        //frees the memory of the search array
+        
+        //frees the memory of the search array and hash table
         free(SearchArray);
+        DeleteHashTable(SearchHashTable, TABLE_SIZE);
     }
 
     

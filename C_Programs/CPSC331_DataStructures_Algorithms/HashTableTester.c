@@ -27,6 +27,13 @@ int main()
     add(103, table, TABLE_SIZE);
     add(1010, table, TABLE_SIZE);
 
+    NODE_T *tmp = NULL;
+    PrintHashTable(table, TABLE_SIZE);
+    tmp = HashSearch(105, table, TABLE_SIZE);
+    printf("our return now has val of = %d\n", tmp->value);
+    tmp->value = 22;
+
+
 
     PrintHashTable(table, TABLE_SIZE);
     DeleteHashTable(table, TABLE_SIZE);

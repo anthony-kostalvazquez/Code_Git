@@ -152,8 +152,23 @@ NODE_T ** HashTabFromArray(int *array, int hash_size, int arr_size)
     return(table);
 }
 
+//searches the hash table for the value
+//retuns a NULL node if it doesn't have it
+//returns the node if it does have it
+NODE_T *HashSearch(int item, NODE_T **table, int size)
+{
+    NODE_T *RetNode = NULL;
+    int i = hash(item, size);
 
-//contains(int item, NODE_T **table, int size)
+    if (table[i] != NULL)
+    {
+        RetNode = find_node(table[i], item);
+        //printf("found at position %d\n", i);
+    }
+
+
+    return(RetNode);
+}
 
 /*
 void remove(int item, NODE_T **table, int size)
