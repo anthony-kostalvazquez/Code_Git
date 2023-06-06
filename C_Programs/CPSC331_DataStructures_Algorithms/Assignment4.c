@@ -24,7 +24,6 @@ int main()
     double cpu_time_used;
     int tmpss = 0;
     int tmpbs = 0;
-    NODE_T *tmphs = NULL;
 
 
     //You will generate 99 distinct random numbers between 0 and 5000 and store them in an array of size 100. Add 5001 as the 100th cell in the array.
@@ -34,7 +33,7 @@ int main()
 
 
     //creates random search arrays of size 1,000 - 1,000,000 
-    for (int S_size = 1000; S_size <= 1005; S_size++)
+    for (int S_size = 1000; S_size <= 1000000; S_size = S_size + 1000)
     {
         
         //generate an array of integers called the search array. This is the array to be searched. the values in the array are from 0 to 5000.
@@ -59,8 +58,12 @@ int main()
         }
 
         //--------------------HASH SEARCH--------------------//
+        start = clock();
         NODE_T **SearchHashTable = HashTabFromArray(SearchArray, TABLE_SIZE, S_size);
+        end = clock();
+        printf("Hash table creation took %f\n", ((double) (end - start)) / CLOCKS_PER_SEC);
         //PrintHashTable(table, TABLE_SIZE);
+        NODE_T *tmphs = NULL;
 
         for (int i = 0; i < E_size; i++)
         {
@@ -70,12 +73,16 @@ int main()
 
             HashTime += ((double) (end - start)) / CLOCKS_PER_SEC;
 
-            assert(tmphs == NULL || temphs->val = ElementsArray[i]);
+
+            assert(tmphs == NULL || tmphs->value == ElementsArray[i]);
         }
 
         //--------------------BINARY SEARCH--------------------//
         //sorting the search array
+        start = clock();
         BubbleSort(SearchArray, S_size);
+        end = clock();
+        printf("Bubble sort took %f\n", ((double) (end - start)) / CLOCKS_PER_SEC);
         for (int i = 0; i < E_size; i++)
         {
             start = clock();
@@ -85,9 +92,6 @@ int main()
             BinTime += ((double) (end - start)) / CLOCKS_PER_SEC;
             assert(tmpbs == -1 || SearchArray[tmpbs] == ElementsArray[i]);
         }
-    
-        assert(printf("for array of size %d Sequential search took %fs\n", S_size, SeqTime));
-        assert(printf("for array of size %d Binary search took %fs\n", S_size, BinTime));
 
         printf("%d\t%f\t%f\t%f\n",S_size, SeqTime, BinTime, HashTime);
         

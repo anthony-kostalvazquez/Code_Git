@@ -23,6 +23,8 @@
         "search.h": "c",
         "*.tcc": "c",
         "hashtable.h": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "time.h": "c",
+        "sort.h": "c"
     }
 }

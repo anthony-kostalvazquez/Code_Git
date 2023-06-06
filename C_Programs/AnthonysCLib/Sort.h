@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 //BUBBLE Sorts the given array
+//O(n^2)
 void BubbleSort(int *array, int size)
 {
     //printf("Staring array\n");
@@ -26,3 +27,18 @@ void BubbleSort(int *array, int size)
     //printf("Final array\n");
     //PrintIntArray(array, 2);
 }
+
+//Partition function for quick sort
+int Partition(int *List, int low, int high)
+{
+    
+}
+
+
+
+//sorts a given array in O(nlog(n)) time
+void QuickSort(int *List, int low, int high)
+{
+
+}
+
