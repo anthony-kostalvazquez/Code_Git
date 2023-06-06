@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+//#include "Arrays.h"
+
+
 //BUBBLE Sorts the given array
 //O(n^2)
 void BubbleSort(int *array, int size)
@@ -29,16 +32,34 @@ void BubbleSort(int *array, int size)
 }
 
 //Partition function for quick sort
-int Partition(int *List, int low, int high)
+int Partition(int *list, int low, int high)
 {
-    
+    //choosing the pivot to be the last element
+    int pivot = list[high];
+
+    int i = low - 1;
+
+    for (int j = low; j < high; j++)
+    {
+        if(list[j] < pivot)
+        {
+            i++;
+            ArraySwap(list,i ,j );
+        }
+    }
+    ArraySwap(list,high ,i+1);
+    return(i+1);
 }
-
-
 
 //sorts a given array in O(nlog(n)) time
 void QuickSort(int *List, int low, int high)
 {
+    if(low < high)
+    {
+        int p = Partition(List, low, high);
 
+        QuickSort(List, low, p - 1);
+        QuickSort(List, p+1, high);
+    }
 }
 

@@ -3,6 +3,14 @@
 #include <stdbool.h>
 #include <time.h>
 
+//takes two array indexes and the array and swaps the values
+void ArraySwap(int *array, int in1, int in2)
+{
+    int tmp = array[in1];
+    array[in1] = array[in2];
+    array[in2] = tmp;
+}
+
 //prints arrays (look inside for the different formats)
 //Format = 0 prints line by line
 //Format = 1 prints with commas
@@ -18,6 +26,11 @@ void PrintIntArray(int *ptr, int format, int size)
         else if(format == 1)
         {
             printf("%d ,", ptr[i]);
+            if (i == (size - 1))
+            {
+                printf("\n");
+            }
+            
         }
         else if(format == 2)
         {

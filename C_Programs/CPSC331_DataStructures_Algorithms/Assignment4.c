@@ -58,10 +58,10 @@ int main()
         }
 
         //--------------------HASH SEARCH--------------------//
-        start = clock();
+        //start = clock();
         NODE_T **SearchHashTable = HashTabFromArray(SearchArray, TABLE_SIZE, S_size);
-        end = clock();
-        printf("Hash table creation took %f\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+        //end = clock();
+        //printf("Hash table creation took %f\n", ((double) (end - start)) / CLOCKS_PER_SEC);
         //PrintHashTable(table, TABLE_SIZE);
         NODE_T *tmphs = NULL;
 
@@ -79,10 +79,11 @@ int main()
 
         //--------------------BINARY SEARCH--------------------//
         //sorting the search array
-        start = clock();
-        BubbleSort(SearchArray, S_size);
-        end = clock();
-        printf("Bubble sort took %f\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+        //start = clock();
+        //BubbleSort(SearchArray, S_size);
+        QuickSort(SearchArray, 0, S_size-1);
+        //end = clock();
+        //printf("Bubble sort took %f\n", ((double) (end - start)) / CLOCKS_PER_SEC);
         for (int i = 0; i < E_size; i++)
         {
             start = clock();
