@@ -2,8 +2,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-//#include "Arrays.h"
-
+void ArraySwap(int *array, int in1, int in2)
+{
+    int tmp = array[in1];
+    array[in1] = array[in2];
+    array[in2] = tmp;
+}
 
 //BUBBLE Sorts the given array
 //O(n^2)
@@ -30,6 +34,7 @@ void BubbleSort(int *array, int size)
     //printf("Final array\n");
     //PrintIntArray(array, 2);
 }
+
 
 //Partition function for quick sort
 int Partition(int *list, int low, int high)
