@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <math.h>
 
 struct Single_Linked_List_Node
 {
@@ -29,6 +29,39 @@ SLL_T *create_new_node(int value)
     result->value = value;
     result->next = NULL;
     return result;
+}
+
+//takes linked list and returns the length of it
+int LengthList(struct SLL_T* head)
+{
+    int length = 0;
+    for (SLL_T *i = head; i != NULL; i = i->next)
+    {
+        length++;
+    }
+
+    return(length);
+}
+
+//takes a linked list and an int and returns the node at that integer
+SLL_T* ReturnIndex(SLL_T* head, int indx)
+{
+    SLL_T* tmp = head;
+
+    for (int i = 0; i < indx; i++)
+    {
+        tmp = tmp->next;
+    }
+
+    return(tmp);
+}
+
+//returns the middle node of a linked list
+SLL_T* middleNode(SLL_T* head)
+{
+    int length = LengthList(head);
+    int middle = ceil(length / 2);
+    return(ReturnIndex(head, middle));
 }
 
 //inserts a node at the head of a list
