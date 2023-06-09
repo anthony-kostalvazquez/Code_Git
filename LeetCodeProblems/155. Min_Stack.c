@@ -81,7 +81,7 @@ void PrintStack(MinStack *stack)
 }
 
 //pushes a value to the top of the stack
-void minStackPush(MinStack* obj, int val) 
+void StackPush(MinStack* obj, int val) 
 {
     //update the stacks min value
     int minimum;
@@ -154,16 +154,16 @@ int main()
 
     printf("Creating a new stack of integers \n");
     PrintStack(obj);
-    minStackPush(obj, 4);
+    StackPush(obj, 4);
     PrintStack(obj);
     printf("The minStackTop of the stack is: %d\n",minStackTop(obj));
-    minStackPush(obj, 2);
+    StackPush(obj, 2);
     PrintStack(obj);
     printf("The minStackTop of the stack is: %d\n",minStackTop(obj));
-    minStackPush(obj,5);
+    StackPush(obj,5);
     PrintStack(obj);
     printf("The minStackTop of the stack is: %d\n",minStackTop(obj));
-    minStackPush(obj, 7);
+    StackPush(obj, 7);
     PrintStack(obj);
     printf("The minStackTop of the stack is: %d\n",minStackTop(obj));
     
@@ -187,13 +187,13 @@ int main()
     printf("Creating a another stack\n");
     for (int i = 0; i < 10; i++)
     {
-        minStackPush(obj, (9 - i));
+        StackPush(obj, (9 - i));
         printf("minStackPushed %d\n", (9 - i) );
     }
 
     PrintStack(obj);
     printf("minStackPushing one more element\n");
-    minStackPush(obj, 10);  
+    StackPush(obj, 10);  
     printf("minStackPushed 10\n");
     PrintStack(obj);
     
