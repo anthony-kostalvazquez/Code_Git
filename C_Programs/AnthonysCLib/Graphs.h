@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "SingleLinkedQueue.h"
+#include "SingleLinkedQueue.h"
 
 
 //====================Color Implementation====================//
@@ -148,7 +149,14 @@ struct LinkedQueue* oneSourceBFS(int startVertex, struct MGraph *graph)
     return(outQ);
 }
 
+//returns a queue of DFS walk of vertices from startVertex
 
+
+//checks if a walk from a single source has a 
+
+
+//checks if a graph is acylic (meaning it has no cycles)
+bool 
 
 //====================Adjacency List Graph====================//
 
