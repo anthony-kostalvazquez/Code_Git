@@ -25,6 +25,7 @@
         "hashtable.h": "c",
         "algorithm": "c",
         "time.h": "c",
-        "sort.h": "c"
+        "sort.h": "c",
+        "singlelinkedstack.h": "c"
     }
 }
