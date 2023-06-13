@@ -7,12 +7,7 @@ int equalPairs(int** grid, int gridSize, int* gridColSize)
 {
     int NumofEqual = 0;
     int j =0;
-
-
     
-
-
-
     //itterates through the rows
     for (int row = 0; row < gridSize; row++)
     {
