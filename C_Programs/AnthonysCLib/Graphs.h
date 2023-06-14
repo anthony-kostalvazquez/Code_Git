@@ -154,25 +154,39 @@ struct LinkedQueue* oneSourceBFS(int startVertex, struct MGraph *graph)
 //PAINFULLY RECURSIVE
 bool sSHasCycle(struct MGraph *graph, int startVertex, bool *visited)
 {
+    int i = 0;
     visited[startVertex] = true;
+    printf("called with start = %d, \n visited = ",startVertex);
+
     for (int i = 0; i < graph->verticies; i++)
+    {
+        printf("%d ",visited[i]);
+    }
+    printf("\n");
+    for (i = 0; i < graph->verticies; i++)
     {
         if(((graph->adjmatrix)[startVertex][i].edgeWeight != 0))
         {
+            printf("checking (%d,%d), i = %d\n", startVertex, i, i);
             if(!(visited[i]))
             {
                 if(sSHasCycle(graph, i, visited))
                 {
+                    printf("returning true\n");
                     return true;
                 }
             } 
             else
             {
+                printf("returning true\n");
                 return(true);
             }
         }
             
     }
+
+
+    visited[i] = false;
     return(false);
 }
 
@@ -187,6 +201,8 @@ bool HasCycle(struct MGraph *graph)
         {
             visited[i] = false;
         }
+
+        printf("\n\nNEW CALL\n\n");
         if(sSHasCycle(graph, i, visited))
         {
             return true;

@@ -14,8 +14,8 @@ int main()
 
 
     int edges = 5;
-    int verticies = 6;
-    int in_array[5][2] = {{0,1},{0,2},{0,3},{0,4},{0,5}};
+    int verticies = 4;
+    int in_array[5][2] = {{2,0},{1,0},{3,1},{3,2},{1,3}};
 
     int **edge_arr = malloc(sizeof(int) * verticies);
     for (int i = 0; i < edges; i++)
