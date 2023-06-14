@@ -3,7 +3,6 @@
 #include <stdbool.h>
 
 #include "SingleLinkedQueue.h"
-#include "SingleLinkedQueue.h"
 
 
 //====================Color Implementation====================//
@@ -116,6 +115,7 @@ struct MGraph *MakeGraphFromEdges(int **edge_list, int edges, int verticies)
 }
 
 //returns a queue of BFS walk of vertices from startVertex
+//basically this will return a list of verticies that are reachable from the specified vertex
 struct LinkedQueue* oneSourceBFS(int startVertex, struct MGraph *graph)
 {
     struct LinkedQueue *outQ = createQueue();
@@ -149,14 +149,55 @@ struct LinkedQueue* oneSourceBFS(int startVertex, struct MGraph *graph)
     return(outQ);
 }
 
-//returns a queue of DFS walk of vertices from startVertex
 
-
-//checks if a walk from a single source has a 
+//checks if a walk from a single source has a cycle
+//PAINFULLY RECURSIVE
+bool sSHasCycle(struct MGraph *graph, int startVertex, bool *visited)
+{
+    visited[startVertex] = true;
+    for (int i = 0; i < graph->verticies; i++)
+    {
+        if(((graph->adjmatrix)[startVertex][i].edgeWeight != 0))
+        {
+            if(!(visited[i]))
+            {
+                if(sSHasCycle(graph, i, visited))
+                {
+                    return true;
+                }
+            } 
+            else
+            {
+                return(true);
+            }
+        }
+            
+    }
+    return(false);
+}
 
 
 //checks if a graph is acylic (meaning it has no cycles)
-bool 
+bool HasCycle(struct MGraph *graph)
+{
+    bool visited[graph->verticies];
+    for (int i = 0; i < graph->verticies; i++)
+    {
+        for (int i = 0; i < graph->verticies; i++)
+        {
+            visited[i] = false;
+        }
+        if(sSHasCycle(graph, i, visited))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+//returns a queue of DFS walk of vertices from startVertex
+
 
 //====================Adjacency List Graph====================//
 

@@ -13,9 +13,9 @@ int main()
     PrintMGraph(graph);
 
 
-    int edges = 6;
-    int verticies = 4;
-    int in_array[10][2] = {{0,1},{0,2},{1,2},{2,0},{2,3},{3,3}};
+    int edges = 5;
+    int verticies = 6;
+    int in_array[5][2] = {{0,1},{0,2},{0,3},{0,4},{0,5}};
 
     int **edge_arr = malloc(sizeof(int) * verticies);
     for (int i = 0; i < edges; i++)
@@ -32,6 +32,16 @@ int main()
 
     struct LinkedQueue* queue= oneSourceBFS(2, graph2);
     printQueue(queue);
+
+
+    //sSHasCycle(graph2, 0);
+    //printf("HasSsCycle = %d", sSHasCycle(graph2, 0, visited));
+
+
+
+    printf("HasCycle = %d", HasCycle(graph2));
+
+
 
 
 
