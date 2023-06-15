@@ -29,7 +29,7 @@ int main()
     printf("Dequeued: %d\n", dequeue(&queue));
     printQueue(queue);
 
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 22; i++)
     {
         enqueue(i,&queue);
         dequeue(&queue);

@@ -222,15 +222,29 @@ int *DIJKSTRA(struct MGraph *graph, int vertex)
     //initialize cost list
     int *CostList = malloc(sizeof(int*) * graph->verticies);
 
-    //initialize CheckedVerts and add the starting vertex
-    LQUEUE_T *CheckedVerts = createQueue();
-    enqueue(vertex, CheckedVerts);
+    //initialize ToCheck without the starting vertex
+    LQUEUE_T *ToCheck = createQueue();
+    for (int i = 0; i < graph->verticies; i++)
+    {
+        enqueue(i,ToCheck);
+    }
 
     //setting the costs of all the edges pointing from the starting vertex
+    for (int j = 0; j < graph->verticies; j++)
+    {
+        CostList[j] = graph->adjmatrix[vertex][j].edgeWeight;
+    }
+
+
+    
+
+    
+
+
     
     return(CostList);
 }
 
 
-//====================Adjacency List Graph====================//
 
+//====================Adjacency List Graph====================//

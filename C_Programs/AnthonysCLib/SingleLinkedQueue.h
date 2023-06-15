@@ -82,7 +82,7 @@ void enqueue (int element, LQUEUE_T *queue)
 
 //this will remove the front element of the queue and return its value
 //rear [val]->[val]->[val] front
-int dequeue (LQUEUE_T *queue)
+int dequeue(LQUEUE_T *queue)
 {
 
     int return_value = queue->front->value;
@@ -102,6 +102,7 @@ int dequeue (LQUEUE_T *queue)
         //climb through the queue until you find the second to last node
         while(tmp->next != queue->front)
         {
+ 
             tmp = tmp->next;
         }
         //now that tmp is a pointer to the second to last node we update this to front and delete the last node
@@ -111,4 +112,18 @@ int dequeue (LQUEUE_T *queue)
         queue->front->next = NULL;
     }
     return(return_value);
+}
+
+//finds the first instance of the minimum value and pops it
+int PopMin(LQUEUE_T *queue)
+{
+    for(QUEUE_NODE_T *i = queue->rear; i != NULL; i = i->next)
+    {
+        printf("%d", i->value);
+        if(i->next != NULL)
+        {
+            printf(", ");
+        }
+    }
+    
 }
