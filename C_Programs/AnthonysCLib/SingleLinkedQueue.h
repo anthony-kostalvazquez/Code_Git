@@ -68,47 +68,47 @@ bool isFull(LQUEUE_T *queue)
 
 // FIFO this will add from the rear and push the front up
 // rear [enqueue]->[val]->[val]->[val] front
-void enqueue (int element, LQUEUE_T **queue)
+void enqueue (int element, LQUEUE_T *queue)
 {
     QUEUE_NODE_T *nn = newNode(element);
-    nn->next = (*queue)->rear;
-    (*queue)->rear = nn;
+    nn->next = queue->rear;
+    queue->rear = nn;
 
-    if((*queue)->front == NULL)
+    if(queue->front == NULL)
     {
-        (*queue)->front = (*queue)->rear;
+        queue->front = queue->rear;
     }
 }
 
 //this will remove the front element of the queue and return its value
 //rear [val]->[val]->[val] front
-int dequeue (LQUEUE_T **queue)
+int dequeue (LQUEUE_T *queue)
 {
 
-    int return_value = (*queue)->front->value;
+    int return_value = queue->front->value;
 
 
-    if ((*queue)->front == (*queue)->rear)
+    if (queue->front == queue->rear)
     {
-        free((*queue)->front);
-        (*queue)->front = NULL;
-        (*queue)->rear = NULL;
+        free(queue->front);
+        queue->front = NULL;
+        queue->rear = NULL;
 
     }
     else
     {
         //create a temporary pointer
-        QUEUE_NODE_T *tmp = (*queue)->rear;
+        QUEUE_NODE_T *tmp = queue->rear;
         //climb through the queue until you find the second to last node
-        while(tmp->next != (*queue)->front)
+        while(tmp->next != queue->front)
         {
             tmp = tmp->next;
         }
         //now that tmp is a pointer to the second to last node we update this to front and delete the last node
         free(tmp->next);
 
-        (*queue)->front = tmp;
-        (*queue)->front->next = NULL;
+        queue->front = tmp;
+        queue->front->next = NULL;
     }
     return(return_value);
 }

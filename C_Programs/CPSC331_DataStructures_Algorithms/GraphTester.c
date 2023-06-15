@@ -41,6 +41,17 @@ int main()
 
     printf("HasCycle = %d", HasCycle(graph2));
 
+    struct MGraph *graph3 = NewGraph(5);
+    graph3->adjmatrix[0][1].edgeWeight = 10;
+    graph3->adjmatrix[0][3].edgeWeight = 30;
+    graph3->adjmatrix[0][4].edgeWeight = 100;
+    graph3->adjmatrix[1][2].edgeWeight = 50;
+    graph3->adjmatrix[2][4].edgeWeight = 10;
+    graph3->adjmatrix[3][2].edgeWeight = 20;
+    graph3->adjmatrix[3][4].edgeWeight = 60;
+    PrintMGraph(graph3);
+
+
 
 
 

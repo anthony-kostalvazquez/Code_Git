@@ -4,6 +4,8 @@
 
 #include "SingleLinkedQueue.h"
 
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 //====================Color Implementation====================//
 #define RED   "\x1B[31m"
@@ -128,17 +130,17 @@ struct LinkedQueue* oneSourceBFS(int startVertex, struct MGraph *graph)
     
     int current;
 
-    enqueue(startVertex, &tmpQ);
+    enqueue(startVertex, tmpQ);
     while(!isEmpty(tmpQ))
     {
-        current = dequeue(&tmpQ);
-        enqueue(current, &outQ);
+        current = dequeue(tmpQ);
+        enqueue(current, outQ);
         visited[current] = true;
         for (int i = 0; i < graph->verticies; i++)
         {
             if (((graph->adjmatrix)[current][i].edgeWeight != 0) && !(visited[i]))
             {
-                enqueue(i, &tmpQ);
+                enqueue(i, tmpQ);
                 visited[i] = true;
             }
             
@@ -213,6 +215,21 @@ bool HasCycle(struct MGraph *graph)
 }
 
 //returns a queue of DFS walk of vertices from startVertex
+
+//Returns the cost of the shortest path from s to every other vertex [Dijkstra’s Algorithm]
+int *DIJKSTRA(struct MGraph *graph, int vertex)
+{
+    //initialize cost list
+    int *CostList = malloc(sizeof(int*) * graph->verticies);
+
+    //initialize CheckedVerts and add the starting vertex
+    LQUEUE_T *CheckedVerts = createQueue();
+    enqueue(vertex, CheckedVerts);
+
+    //setting the costs of all the edges pointing from the starting vertex
+    
+    return(CostList);
+}
 
 
 //====================Adjacency List Graph====================//
