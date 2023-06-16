@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "SingleLinkedQueue.h"
+#include "MinHeap.h"
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
@@ -223,10 +224,10 @@ int *DIJKSTRA(struct MGraph *graph, int vertex)
     int *CostList = malloc(sizeof(int*) * graph->verticies);
 
     //initialize ToCheck without the starting vertex
-    LQUEUE_T *ToCheck = createQueue();
-    for (int i = 0; i < graph->verticies; i++)
+    struct MinHeap *ToCheck = NewHeap();
+    for (int i = 1; i < graph->verticies; i++)
     {
-        enqueue(i,ToCheck);
+        MinHEnqueue(ToCheck, i);
     }
 
     //setting the costs of all the edges pointing from the starting vertex
