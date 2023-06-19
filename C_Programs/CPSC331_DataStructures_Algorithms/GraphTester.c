@@ -52,6 +52,27 @@ int main()
     PrintMGraph(graph3);
 
 
+    int *costlist = DIJKSTRA(graph3, 0);
+    printf("output\n");
+    for (int i = 0; i < graph3->verticies; i++)
+    {
+        printf("%d\n", costlist[i]);
+    }
+
+    int **APSP = DijkstraAPSP(graph3);
+    for (int i = 0; i < graph3->verticies; i++)
+    {
+        printf("from %d = [",i);
+        for (int j = 0; j < graph3->verticies; j++)
+        {
+        printf("%d, ", APSP[i][j]);
+        }
+        printf("]\n");
+    }
+    
+    
+
+
 
 
 

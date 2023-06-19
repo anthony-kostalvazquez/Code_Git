@@ -66,7 +66,7 @@ void PrintHeap(struct MinHeap* heap)
     
 }
 
-//enques the given value into the max heap and maintains the minheap properties
+//enques the given value into the min heap and maintains the minheap properties
 void MinHEnqueue(struct MinHeap* heap, int value)
 {
     heap->QArray = (int *)realloc(heap->QArray, sizeof(int*) * (heap->size + 1));

@@ -68,7 +68,7 @@ bool isFull(LQUEUE_T *queue)
 
 // FIFO this will add from the rear and push the front up
 // rear [enqueue]->[val]->[val]->[val] front
-void enqueue (int element, LQUEUE_T *queue)
+void enqueue(int element, LQUEUE_T *queue)
 {
     QUEUE_NODE_T *nn = newNode(element);
     nn->next = queue->rear;
@@ -114,16 +114,31 @@ int dequeue(LQUEUE_T *queue)
     return(return_value);
 }
 
-//finds the first instance of the minimum value and pops it
-int PopMin(LQUEUE_T *queue)
+//takes a queue of indexes and checks an array and returns the min value at that index and deques it
+//queue = ind1, ind2
+//array = value 1
+// returns min( array[ind]  )
+int FindMinIn(int *array, LQUEUE_T *queue)
 {
-    for(QUEUE_NODE_T *i = queue->rear; i != NULL; i = i->next)
+    //set the record and min index to the rear value
+    QUEUE_NODE_T *index = queue->rear;
+    int record = array[index->value];
+    int min_index = index->value;
+    index = index->next;
+
+    while(index != NULL)
     {
-        printf("%d", i->value);
-        if(i->next != NULL)
+        if(record < array[index->value])
         {
-            printf(", ");
+            record = array[index->value];
+            min_index = index->value;
         }
+
+        index = index->next;
     }
-    
+
+    //dequeues it 
+
+
+    return(min_index);
 }

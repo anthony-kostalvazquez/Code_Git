@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
+#include <limits.h>
 
 #include "SingleLinkedQueue.h"
-#include "MinHeap.h"
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
@@ -34,6 +35,155 @@ VERTEX_T *CreateVertex(int id,int weight)
     tmp->id = id;
 
     return(tmp);
+}
+
+//====================Min Heap Implementation====================//
+struct MinHeap
+{
+    int size;
+    VERTEX_T *QArray;
+};
+
+//takes two array indexes and the array and swaps the values
+void ArraySwap(VERTEX_T *array, int in1, int in2)
+{
+    VERTEX_T tmp = array[in1];
+    array[in1] = array[in2];
+    array[in2] = tmp;
+}
+
+//will create a new heap and allocate the memory
+struct MinHeap* NewHeap()
+{
+    struct MinHeap* tmp = (struct MinHeap*)malloc(sizeof(struct MinHeap));
+    tmp->QArray = NULL;
+    tmp->size = 0;
+}
+
+//prints the heap 
+void PrintHeap(struct MinHeap* heap)
+{
+    //printf("=====Array Representation=====\n[");
+    for (int v = 0; v < heap->size; v++)
+    {
+        printf("(%d,%d)", heap->QArray[v].id, heap->QArray[v].edgeWeight);
+    }
+    printf("]\n");
+    
+    /*
+    //since heaps are always complete this is the max height
+    double height = ceil(log2((double)(heap->size + 1)));
+    //since heaps are always complete this is the max width
+    double width = pow(2,height);
+    double numspaces = 0;
+    int j = 0;
+    //printf("height = %f, %f\n",height,width);
+
+    for (double i = 1; i <= height; i++)
+    { 
+        numspaces = (width / (pow(2,i)));
+        //printf("num spaces = %f, number = %f, j = %d\n", numspaces, pow(2,i) + 1, j); 
+
+        while(j < pow(2,i) - 1 && j < heap->size)
+        {
+            //prints white space
+            for (int l = 0; l < numspaces; l++)
+            {
+                printf(" ");
+            }
+
+            //prints the value in the array
+            printf("(%d,%d)", heap->QArray[j].id, heap->QArray[j].edgeWeight);
+            j++;
+        }
+        printf("\n");
+        
+    }
+    */
+}
+
+//enques the given value into the max heap and maintains the minheap properties
+void MinHEnqueue(struct MinHeap* heap, int id, int edgeweight)
+{
+    heap->QArray = (VERTEX_T *)realloc(heap->QArray, sizeof(VERTEX_T*) * (heap->size + 1));
+    heap->QArray[heap->size].edgeWeight = edgeweight;
+    heap->QArray[heap->size].id = id;
+
+    //fix the heap
+    int location = heap->size;
+    int parent = (location-1)/2;
+
+    /*for maxH
+    while(location > 0 && heap->QArray[location] < heap->QArray[parent])
+    */
+    while(location > 0 && heap->QArray[location].edgeWeight < heap->QArray[parent].edgeWeight)
+    {
+        ArraySwap(heap->QArray, location, parent);
+        location = parent;
+        parent = (location-1)/2;
+    }
+
+    heap->size++;
+}
+
+//Will continue to sink the given integer in the array of the heap until it is in its proper location
+void HSink(int location, struct MinHeap* heap)
+{
+    int size = heap->size;
+    VERTEX_T *array = heap->QArray;
+    int swapWith;
+    int left = 2*location + 1;
+    int right = 2*location + 2;
+    int node_to_sink = array[location].edgeWeight;
+    
+    if(left > size - 1) //reached a leaf
+    {
+        return;
+    }
+    else if (left == size - 1) //this means we have a node with only 1 child
+    {
+        if (array[left].edgeWeight < node_to_sink)
+        {
+            ArraySwap(array, left, node_to_sink);
+        }
+    }
+    else //The node has 2 children
+    {
+        //decides what child to swap with
+        if (array[left].edgeWeight > array[right].edgeWeight)
+        {
+            swapWith = right;
+        }
+        else
+        {
+            swapWith = left;
+        }
+        
+        if (node_to_sink > swapWith)
+        {
+            ArraySwap(array, swapWith, location);
+            HSink(swapWith, heap);
+        }
+    }
+}
+
+//deques the top value (THE MIN)
+VERTEX_T MinHDequeue(struct MinHeap* heap)
+{
+    //gets min value from the 0 position
+    VERTEX_T min = heap->QArray[0];
+
+    //replaces the 0 position with the size-1 position
+    heap->QArray[0] = heap->QArray[heap->size - 1];
+
+    //sinks the new 0 position to its proper place
+    HSink(0, heap);
+
+    //adjusts the queue size
+    heap->QArray = (VERTEX_T *)realloc(heap->QArray, sizeof(VERTEX_T*) * (heap->size - 1));
+    heap->size--;
+
+    return(min);
 }
 
 
@@ -223,29 +373,103 @@ int *DIJKSTRA(struct MGraph *graph, int vertex)
     //initialize cost list
     int *CostList = malloc(sizeof(int*) * graph->verticies);
 
+    //setting the costs of all the edges pointing from the starting vertex
+    for (int j = 0; j < graph->verticies; j++)
+    {
+        if (graph->adjmatrix[vertex][j].edgeWeight == 0)
+        {
+            CostList[j] = INT_MAX;
+        }
+        else
+        {
+            CostList[j] = graph->adjmatrix[vertex][j].edgeWeight;
+        }
+    }
+
     //initialize ToCheck without the starting vertex
     struct MinHeap *ToCheck = NewHeap();
     for (int i = 1; i < graph->verticies; i++)
     {
-        MinHEnqueue(ToCheck, i);
+        MinHEnqueue(ToCheck, i, CostList[i]);
     }
 
-    //setting the costs of all the edges pointing from the starting vertex
-    for (int j = 0; j < graph->verticies; j++)
+    //main loop
+    VERTEX_T w;
+    VERTEX_T v;
+    printf("ToCheck V-S = ");
+    PrintHeap(ToCheck);
+
+    printf("Cost List = [");
+    for (int bla = 0; bla < graph->verticies; bla++)
     {
-        CostList[j] = graph->adjmatrix[vertex][j].edgeWeight;
+        printf("%d, ", CostList[bla]);
+    }
+    printf("] \n IN MAIN LOOP \n\n");
+
+    while (ToCheck->size != 1)
+    {
+        //finds the vertex w in ToCheck where CostList[w] is minimum
+        w = MinHDequeue(ToCheck);
+
+        printf("ToCheck V-S = ");
+        PrintHeap(ToCheck);
+
+        printf("Cost List = [");
+        for (int bla = 0; bla < graph->verticies; bla++)
+        {
+            printf("%d, ", CostList[bla]);
+        }
+        printf("]\n");
+        
+        
+        printf("w = %d\n", w.id);
+
+        for (int ver = 0; ver < ToCheck->size; ver++)
+        {
+            v = ToCheck->QArray[ver];
+            if(graph->adjmatrix[w.id][v.id].edgeWeight != 0)
+            {
+                if (!(CostList[v.id] == INT_MAX && CostList[w.id] == INT_MAX))
+                {
+                    printf("\tCost List = [");
+                    for (int bla = 0; bla < graph->verticies; bla++)
+                    {
+                        printf("%d, ", CostList[bla]);
+                    }
+                    printf("]\n");
+
+                    
+                    printf("\t%d, %d, %d\n", v.id ,CostList[v.id], CostList[w.id] + graph->adjmatrix[w.id][v.id].edgeWeight);
+
+                    CostList[v.id] = MIN(CostList[v.id], CostList[w.id] + graph->adjmatrix[w.id][v.id].edgeWeight);
+
+                    ToCheck->QArray[ver].edgeWeight = CostList[v.id];
+                    HSink(v.id, ToCheck);
+                }
+            }
+            
+        }
     }
 
-
-    
-
-    
-
-
-    
     return(CostList);
 }
 
+int **DijkstraAPSP(struct MGraph *graph)
+{
+    //allocate mem for the return
+    int **ret_array = (int **)malloc(sizeof(int **) * graph->verticies);
+    for (int i = 0; i < graph->verticies; i++)
+    {
+        ret_array[i] = (int *)malloc(sizeof(int *) * graph->verticies);
+    }
 
+    for (int vertex = 0; vertex < graph->verticies; vertex++)
+    {
+        ret_array[vertex] = DIJKSTRA(graph, vertex);
+    }
+    
+
+    return(ret_array);
+}
 
 //====================Adjacency List Graph====================//
