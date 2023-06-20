@@ -1,3 +1,6 @@
+
+
+
 first_poly = open("C:/Users/antho/Desktop/Code/python/Number_Theory/first_poly", "r")
 second_poly = open("C:/Users/antho/Desktop/Code/python/Number_Theory/second_poly", "r")
 size = 2049

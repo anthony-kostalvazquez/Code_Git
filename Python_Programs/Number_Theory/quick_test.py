@@ -70,7 +70,7 @@ def init(poly_num):
     
         t = r + ((s * i * (m * i - a)) / 2) - min
         while(t < size):
-            print(t)
+            #print(t)
             initiated_poly[int(t)] += c
             t += ((s*(2*i*m + m - a)) / 2)
             i = i + 1

@@ -1,5 +1,7 @@
 import math
 
+
+
 # [c , r , s , a , m]
 POLYNOMIALS = [
 [.5,0,1,1,1],
@@ -43,6 +45,7 @@ def init(poly_num):
     a = POLYNOMIALS[poly_num][3]
     m = POLYNOMIALS[poly_num][4]
 
+
     for i in [-1,1]:
         power = 0
         k = 0
@@ -74,6 +77,8 @@ def main():
             if temp[j] != 0:
                 print(j, temp[j])
                 ""
+
+
 
     for i in range(size):
         if tempf[i] != 0:
