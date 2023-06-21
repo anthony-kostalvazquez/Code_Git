@@ -23,11 +23,14 @@
  
 ******************************************************************************/
 
+#define DEBUG
+
 #include "mult.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 
 #ifndef uint
 #define uint unsigned int

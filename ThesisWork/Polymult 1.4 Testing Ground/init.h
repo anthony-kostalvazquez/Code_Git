@@ -22,6 +22,7 @@
     Copyright (C) 2021 Anton Mosunov
  
 ******************************************************************************/
+#define DEBUG
 
 #ifndef INIT_H_
 #define INIT_H_
