@@ -23,6 +23,8 @@ struct MinHeap* NewHeap()
     struct MinHeap* tmp = (struct MinHeap*)malloc(sizeof(struct MinHeap));
     tmp->QArray = NULL;
     tmp->size = 0;
+
+    return tmp;
 }
 
 //prints the heap 
