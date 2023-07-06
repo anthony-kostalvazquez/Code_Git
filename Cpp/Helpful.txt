@@ -1,0 +1,5 @@
+For Debugging use
+gpp -ggdb -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion file.cpp
+
+For Release Builds use
+gpp -02 -DNDEBUG file.cpp
