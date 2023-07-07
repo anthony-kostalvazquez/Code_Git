@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 int maxConsecutiveAnswers(char * answerKey, int k)
 {
@@ -11,13 +12,13 @@ int maxConsecutiveAnswers(char * answerKey, int k)
 
     for (int i = 0; answerKey[i] != '\0' ; i++)
     {
-        printf("%c\n", answerKey[i]);
+        //printf("%c\n", answerKey[i]);
 
         CurrentCharacter = answerKey[i];
         InARow = 1;
         Changes = 0;
 
-        while (Changes < k && answerKey[i] != '\0')
+        while (Changes < k && answerKey[i+1] != '\0')
         {
             if(CurrentCharacter != answerKey[i+1])
             {
@@ -25,7 +26,6 @@ int maxConsecutiveAnswers(char * answerKey, int k)
                 Changes++;
             }
             else
-
             {
                 i++;
             }
@@ -46,8 +46,8 @@ int maxConsecutiveAnswers(char * answerKey, int k)
 
 int main()
 {
-    char answerKey[4] = "TTFF";
-    int k = 2;
+    char* answerKey = "TFFT";
+    int k = 1;
 
     printf("Output is = %d\n", maxConsecutiveAnswers(answerKey, k));
 
