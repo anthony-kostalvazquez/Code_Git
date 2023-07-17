@@ -4,7 +4,8 @@
 //Gets a double value from the user
 double getUserDouble();
 
-
+//Gets a double value from the user
+int getUserInt();
 
 
 
