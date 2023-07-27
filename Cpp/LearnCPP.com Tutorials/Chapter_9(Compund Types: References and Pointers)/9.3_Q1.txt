@@ -1,0 +1,17 @@
+x = 1
+ref = x
+
+y = 2
+x = 2
+y = 3
+
+
+
+
+prints: 
+1
+22
+44
+
+
+email about 699 and 625 collision, 
