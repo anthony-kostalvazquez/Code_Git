@@ -1,4 +1,4 @@
-// gcc -o polyadd_with_constant_2 Polyadd.c
+// gcc -o polyadd Polyadd.c
 
 #include <stdio.h>
 #include <string.h>
@@ -54,7 +54,8 @@ int main(int argc, char * argv[])
 
     while ((in_file_1 != NULL) && (in_file_2 != NULL))
     {
-        printf("\n\n-----We are now making file %s-----\n\n", out_file_name);
+        //DEBUG OUTPUT printf("\n\n-----We are now making file %s-----\n\n", out_file_name);
+        
         //Create the out file
         out_file = fopen(out_file_name, "wb");
 
@@ -63,8 +64,8 @@ int main(int argc, char * argv[])
             //reading and adding to a buffer
             for (int i = 0; i < 512; i++)
             {
-                out_data[i] = binAddition(2 * in_data_1[i],in_data_2[i]);
-                printf("file 1 = %d, file 2 = %d \t 2*file1 + file 2 = %d \n", in_data_1[i], in_data_2[i], out_data[i]);
+                out_data[i] = binAddition(in_data_1[i],in_data_2[i]);
+                //DEBUG OUTPUT printf("file 1 = %d, file 2 = %d \t file1 + file 2 = %d \n", in_data_1[i], in_data_2[i], out_data[i]);
             }
             
             //writing the whole buffer to the new file
