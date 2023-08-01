@@ -90,15 +90,13 @@ int main(int argc, char * argv[])
                     GEN g = stoi(D);
                     long int pari_h = gtolong(qfbclassno0(g,0));
 
-                    GEN v = quadclassunit0(g,0,0,0);
-
 
                     cgiv(g);
 
 
                     if (pari_h != h)
                     {
-                        printf("\n--INCONSISTENT--\n When D = %ld Pari says h = %ld or %ld but we calculated h = %ld \n", D, pari_h, v[0], h);
+                        printf("\n--INCONSISTENT--\n When D = %ld Pari says h = %ld but we calculated h = %ld \n", D, pari_h, h);
                     }
                     else
                     {
