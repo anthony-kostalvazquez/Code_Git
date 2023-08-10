@@ -43,7 +43,7 @@
 int main(int argc, char * argv[])
 {
 
-	//omp_set_num_threads(4);
+	omp_set_num_threads(1);
 
 	if ((argc < 22) || (argc % 5 != 2))
 	{
