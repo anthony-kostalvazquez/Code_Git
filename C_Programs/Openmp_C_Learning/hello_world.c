@@ -1,3 +1,5 @@
+//gcc -fopenmp hello_world.c 
+
 #include <stdio.h>
 #include "omp.h"
 
